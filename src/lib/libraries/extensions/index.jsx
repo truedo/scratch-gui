@@ -46,6 +46,12 @@ import gdxforInsetIconURL from './gdxfor/gdxfor-small.svg';
 import gdxforConnectionIconURL from './gdxfor/gdxfor-illustration.svg';
 import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 
+// ESP32용 이미지 파일 불러오기
+import esp32SerialIconURL from './zumiAI/zumiAI.png';
+import esp32SerialInsetIconURL from './gdxfor/gdxfor-small.svg';
+import esp32SerialConnectionIconURL from './gdxfor/gdxfor-illustration.svg';
+import esp32SerialConnectionSmallIconURL from './gdxfor/gdxfor-small.svg'; // insetIconURL과 동일하게 사용 가능
+
 export default [
     {
         name: (
@@ -317,5 +323,36 @@ export default [
             />
         ),
         helpLink: 'https://scratch.mit.edu/vernier'
-    }
+    },
+
+    // 👇 ESP32 Web Serial 확장자 정보 추가
+    {
+        name: 'zumi AI', // 👈 다국어 처리 없이 한글 문자열 직접 입력
+        extensionId: 'zumiAI', // VM의 ID와 일치
+        collaborator: 'ROBOLINK',
+
+        // 아이콘 URL은 이전과 동일하게 사용
+        iconURL: esp32SerialIconURL,
+        insetIconURL: esp32SerialInsetIconURL,
+
+        description: '주미 AI를 동글을 사용하여 제어합니다', // 👈 설명 직접 입력
+
+        featured: true,
+        disabled: false,
+
+        // Web Serial 통신 관련 설정 (Bluetooth 불필요)
+        bluetoothRequired: false,
+        internetConnectionRequired: false,
+
+        launchPeripheralConnectionFlow: false,
+        useAutoScan: false,
+
+        // 연결 UI 및 메시지
+        connectionIconURL: esp32SerialConnectionIconURL,
+        connectionSmallIconURL: esp32SerialConnectionSmallIconURL,
+        connectingMessage: '시리얼 포트 연결 중...', // 👈 연결 메시지 직접 입력
+
+        helpLink: 'https://your-custom-help-link.com' // 필요시 도움말 링크 추가
+    },
+    // ...
 ];

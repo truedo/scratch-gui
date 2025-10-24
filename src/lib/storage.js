@@ -1,4 +1,5 @@
-import {ScratchStorage} from 'scratch-storage';
+//import {ScratchStorage} from 'scratch-storage';
+import ScratchStorage from 'scratch-storage';
 
 import defaultProject from './default-project';
 
