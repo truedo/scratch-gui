@@ -335,7 +335,7 @@ export default [
         iconURL: esp32SerialIconURL,
         insetIconURL: esp32SerialInsetIconURL,
 
-        description: '주미 AI를 동글을 사용하여 제어합니다', // 👈 설명 직접 입력
+        description: 'Zumi AI for scratch3', // 👈 설명 직접 입력
 
         featured: true,
         disabled: false,
@@ -350,7 +350,7 @@ export default [
         // 연결 UI 및 메시지
         connectionIconURL: esp32SerialConnectionIconURL,
         connectionSmallIconURL: esp32SerialConnectionSmallIconURL,
-        connectingMessage: '시리얼 포트 연결 중...', // 👈 연결 메시지 직접 입력
+        connectingMessage: 'connecting...', // 👈 연결 메시지 직접 입력
 
         helpLink: 'https://your-custom-help-link.com' // 필요시 도움말 링크 추가
     },
