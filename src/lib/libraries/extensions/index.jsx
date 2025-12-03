@@ -53,8 +53,15 @@ import esp32SerialConnectionIconURL from './gdxfor/gdxfor-illustration.svg';
 import esp32SerialConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 
 
+// // ESP32용 이미지 파일 불러오기
+// import esp32BluetoothIconURL from './zumiAI/zumiAI.png';
+// import esp32BluetoothInsetIconURL from './gdxfor/gdxfor-small.svg';
+// import esp32BluetoothConnectionIconURL from './gdxfor/gdxfor-illustration.svg';
+// import esp32BluetoothConnectionSmallIconURL from './gdxfor/gdxfor-small.svg'; // insetIconURL과 동일하게 사용 가능
+
+
 // ESP32용 이미지 파일 불러오기
-import esp32BluetoothIconURL from './zumiAI/zumiAI.png';
+import esp32BluetoothIconURL from './gdxfor/gdxfor.png';
 import esp32BluetoothInsetIconURL from './gdxfor/gdxfor-small.svg';
 import esp32BluetoothConnectionIconURL from './gdxfor/gdxfor-illustration.svg';
 import esp32BluetoothConnectionSmallIconURL from './gdxfor/gdxfor-small.svg'; // insetIconURL과 동일하게 사용 가능
@@ -167,6 +174,37 @@ export default [
         featured: true,
         internetConnectionRequired: true
     },
+
+    // 👇 ESP32 Web Bluetooth 확장자 정보 추가
+    {
+        name: 'zumi AI Bluetooth', // 👈 다국어 처리 없이 한글 문자열 직접 입력
+        extensionId: 'zumiAIB', // VM의 ID와 일치
+        collaborator: 'ROBOLINK',
+
+        // 아이콘 URL은 이전과 동일하게 사용
+        iconURL: esp32BluetoothIconURL,
+        insetIconURL: esp32BluetoothInsetIconURL,
+
+        description: 'Zumi AI for scratch3', // 👈 설명 직접 입력
+
+        featured: true,
+        disabled: false,
+
+        // Web Serial 통신 관련 설정 (Bluetooth 불필요)
+        bluetoothRequired: false,
+        internetConnectionRequired: false,
+
+        launchPeripheralConnectionFlow: false,
+        useAutoScan: false,
+
+        // 연결 UI 및 메시지
+        connectionIconURL: esp32BluetoothConnectionIconURL,
+        connectionSmallIconURL: esp32BluetoothConnectionSmallIconURL,
+        connectingMessage: 'connecting...', // 👈 연결 메시지 직접 입력
+
+        helpLink: 'https://your-custom-help-link.com' // 필요시 도움말 링크 추가
+    },
+
     {
         name: 'Makey Makey',
         extensionId: 'makeymakey',
@@ -212,6 +250,8 @@ export default [
         ),
         helpLink: 'https://scratch.mit.edu/microbit'
     },
+
+
     {
         name: 'LEGO MINDSTORMS EV3',
         extensionId: 'ev3',
@@ -304,36 +344,36 @@ export default [
         ),
         helpLink: 'https://scratch.mit.edu/wedo'
     },
-    {
-        name: 'Go Direct Force & Acceleration',
-        extensionId: 'gdxfor',
-        collaborator: 'Vernier',
-        iconURL: gdxforIconURL,
-        insetIconURL: gdxforInsetIconURL,
-        description: (
-            <FormattedMessage
-                defaultMessage="Sense push, pull, motion, and spin."
-                description="Description for the Vernier Go Direct Force and Acceleration sensor extension"
-                id="gui.extension.gdxfor.description"
-            />
-        ),
-        featured: true,
-        disabled: false,
-        bluetoothRequired: true,
-        internetConnectionRequired: true,
-        launchPeripheralConnectionFlow: true,
-        useAutoScan: false,
-        connectionIconURL: gdxforConnectionIconURL,
-        connectionSmallIconURL: gdxforConnectionSmallIconURL,
-        connectingMessage: (
-            <FormattedMessage
-                defaultMessage="Connecting"
-                description="Message to help people connect to their force and acceleration sensor."
-                id="gui.extension.gdxfor.connectingMessage"
-            />
-        ),
-        helpLink: 'https://scratch.mit.edu/vernier'
-    },
+    // {
+    //     name: 'Go Direct Force & Acceleration',
+    //     extensionId: 'gdxfor',
+    //     collaborator: 'Vernier',
+    //     iconURL: gdxforIconURL,
+    //     insetIconURL: gdxforInsetIconURL,
+    //     description: (
+    //         <FormattedMessage
+    //             defaultMessage="Sense push, pull, motion, and spin."
+    //             description="Description for the Vernier Go Direct Force and Acceleration sensor extension"
+    //             id="gui.extension.gdxfor.description"
+    //         />
+    //     ),
+    //     featured: true,
+    //     disabled: false,
+    //     bluetoothRequired: true,
+    //     internetConnectionRequired: true,
+    //     launchPeripheralConnectionFlow: true,
+    //     useAutoScan: false,
+    //     connectionIconURL: gdxforConnectionIconURL,
+    //     connectionSmallIconURL: gdxforConnectionSmallIconURL,
+    //     connectingMessage: (
+    //         <FormattedMessage
+    //             defaultMessage="Connecting"
+    //             description="Message to help people connect to their force and acceleration sensor."
+    //             id="gui.extension.gdxfor.connectingMessage"
+    //         />
+    //     ),
+    //     helpLink: 'https://scratch.mit.edu/vernier'
+    // },
 
     // 👇 ESP32 Web Serial 확장자 정보 추가
     {
@@ -365,35 +405,6 @@ export default [
         helpLink: 'https://your-custom-help-link.com' // 필요시 도움말 링크 추가
     },
 
-    // 👇 ESP32 Web Bluetooth 확장자 정보 추가
-    {
-        name: 'zumi AI Bluetooth', // 👈 다국어 처리 없이 한글 문자열 직접 입력
-        extensionId: 'zumiAIB', // VM의 ID와 일치
-        collaborator: 'ROBOLINK',
-
-        // 아이콘 URL은 이전과 동일하게 사용
-        iconURL: esp32BluetoothIconURL,
-        insetIconURL: esp32BluetoothInsetIconURL,
-
-        description: 'Zumi AI for scratch3', // 👈 설명 직접 입력
-
-        featured: true,
-        disabled: false,
-
-        // Web Serial 통신 관련 설정 (Bluetooth 불필요)
-        bluetoothRequired: false,
-        internetConnectionRequired: false,
-
-        launchPeripheralConnectionFlow: false,
-        useAutoScan: false,
-
-        // 연결 UI 및 메시지
-        connectionIconURL: esp32BluetoothConnectionIconURL,
-        connectionSmallIconURL: esp32BluetoothConnectionSmallIconURL,
-        connectingMessage: 'connecting...', // 👈 연결 메시지 직접 입력
-
-        helpLink: 'https://your-custom-help-link.com' // 필요시 도움말 링크 추가
-    },
 
 
     // ...
