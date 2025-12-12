@@ -12,35 +12,67 @@ import StageHeaderComponent from '../components/stage-header/stage-header.jsx';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class StageHeader extends React.Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
+
+        this.state = {
+            connectionStatus: "no" // 기본값
+        };
+
         bindAll(this, [
-            'handleKeyPress'
+            'handleKeyPress',
+            'handleConnectionStatus'
         ]);
     }
-    componentDidMount () {
+
+    componentDidMount() {
         document.addEventListener('keydown', this.handleKeyPress);
+
+        // ★ VM 이벤트 등록
+        if (this.props.vm && this.props.vm.runtime) {
+            this.props.vm.runtime.on('CONNECTION_STATUS', this.handleConnectionStatus);
+        }
     }
-    componentWillUnmount () {
+
+    componentWillUnmount() {
         document.removeEventListener('keydown', this.handleKeyPress);
+
+        // ★ VM 이벤트 해제
+        if (this.props.vm && this.props.vm.runtime) {
+            this.props.vm.runtime.off('CONNECTION_STATUS', this.handleConnectionStatus);
+        }
     }
-    handleKeyPress (event) {
+
+    // ★ VM이 전달하는 상태 값 처리
+    handleConnectionStatus(status) {
+        this.setState({
+            connectionStatus: status
+        });
+    }
+
+    handleKeyPress(event) {
         if (event.key === 'Escape' && this.props.isFullScreen) {
             this.props.onSetStageUnFull(false);
         }
     }
-    render () {
+
+    render() {
         const {
             ...props
         } = this.props;
+
         return (
             <StageHeaderComponent
                 {...props}
                 onKeyPress={this.handleKeyPress}
+
+                // ★ Controls로 넘어가는 값
+                connectionStatus={this.state.connectionStatus}
             />
         );
     }
 }
+
 
 StageHeader.propTypes = {
     isFullScreen: PropTypes.bool,

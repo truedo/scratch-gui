@@ -58,6 +58,7 @@ const StageHeaderComponent = function (props) {
         onSetStageUnFull,
         showBranding,
         stageSizeMode,
+        connectionStatus,
         vm
     } = props;
 
@@ -101,7 +102,11 @@ const StageHeaderComponent = function (props) {
                     className={styles.stageMenuWrapper}
                     style={{width: stageDimensions.width}}
                 >
-                    <Controls vm={vm} />
+                    <Controls
+                        vm={vm}
+
+                        connectionStatus={connectionStatus}   // ← 여기 추가
+                    />
                     {stageButton}
                 </Box>
             </Box>
@@ -135,7 +140,11 @@ const StageHeaderComponent = function (props) {
         header = (
             <Box className={styles.stageHeaderWrapper}>
                 <Box className={styles.stageMenuWrapper}>
-                    <Controls vm={vm} />
+                    {/* <Controls vm={vm} /> */}
+                    <Controls
+                        vm={vm}
+                        connectionStatus={connectionStatus}   // ← 여기 추가
+                    />
                     <div className={styles.stageSizeRow}>
                         {stageControls}
                         <div>
@@ -152,6 +161,16 @@ const StageHeaderComponent = function (props) {
                                 />
                             </Button>
                         </div>
+
+
+{/*
+                        <div>
+                            <Button className={styles.stageButton}>
+                                <div className={styles.myRoundButton}></div>
+                            </Button>
+                        </div> */}
+
+
                     </div>
                 </Box>
             </Box>

@@ -1,3 +1,33 @@
 .controls-container {
     display: flex;
 }
+
+
+.controlsWrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.myButtonWrapper {
+    cursor: pointer;
+}
+
+.myRoundButton {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    transition: background 0.25s ease;
+}
+
+.connected {
+    background: #4caf50; /* green */
+}
+
+.disconnected {
+    background: #f44336; /* red */
+}
+
+.connecting {
+    background: #ff9800; /* orange */
+}

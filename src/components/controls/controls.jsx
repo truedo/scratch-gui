@@ -30,27 +30,50 @@ const Controls = function (props) {
         onGreenFlagClick,
         onStopAllClick,
         turbo,
+
+        connectionStatus,   // ★ 추가
+
         ...componentProps
     } = props;
     return (
-        <div
-            className={classNames(styles.controlsContainer, className)}
-            {...componentProps}
-        >
-            <GreenFlag
-                active={active}
-                title={intl.formatMessage(messages.goTitle)}
-                onClick={onGreenFlagClick}
-            />
-            <StopAll
-                active={active}
-                title={intl.formatMessage(messages.stopTitle)}
-                onClick={onStopAllClick}
-            />
-            {turbo ? (
-                <TurboMode />
-            ) : null}
-        </div>
+        <div className={classNames(styles.controlsWrapper)}>
+
+            <div
+                className={classNames(styles.controlsContainer, className)}
+                {...componentProps}
+            >
+                <GreenFlag
+                    active={active}
+                    title={intl.formatMessage(messages.goTitle)}
+                    onClick={onGreenFlagClick}
+                />
+                <StopAll
+                    active={active}
+                    title={intl.formatMessage(messages.stopTitle)}
+                    onClick={onStopAllClick}
+                />
+                {turbo ? (
+                    <TurboMode />
+                ) : null}
+
+            </div>
+
+            {/* 내가 추가한 버튼 */}
+            <div className={styles.myButtonWrapper}>
+                <div
+                className={classNames(
+                    styles.myRoundButton,
+                    {
+                        [styles.connected]: connectionStatus === "ok",
+                        [styles.disconnected]: connectionStatus === "no",
+                        [styles.connecting]: connectionStatus === "loading"
+                    }
+                )}
+            ></div>
+            </div>
+
+         </div>
+
     );
 };
 
