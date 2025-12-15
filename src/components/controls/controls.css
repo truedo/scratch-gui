@@ -31,3 +31,12 @@
 .connecting {
     background: #ff9800; /* orange */
 }
+
+
+.connectionIcon {
+    width: 18px;
+    height: 18px;
+    margin-left: 6px;
+    opacity: 0.9;
+    cursor: default;
+}

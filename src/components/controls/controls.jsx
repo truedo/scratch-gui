@@ -9,6 +9,11 @@ import TurboMode from '../turbo-mode/turbo-mode.jsx';
 
 import styles from './controls.css';
 
+import chainIcon from './icon--chain.svg';
+import chainOffIcon from './icon--chain-off.svg';
+// import greenFlagIcon from './icon--green-flag.svg';
+
+
 const messages = defineMessages({
     goTitle: {
         id: 'gui.controls.go',
@@ -58,19 +63,23 @@ const Controls = function (props) {
 
             </div>
 
-            {/* 내가 추가한 버튼 */}
-            <div className={styles.myButtonWrapper}>
-                <div
-                className={classNames(
-                    styles.myRoundButton,
-                    {
-                        [styles.connected]: connectionStatus === "ok",
-                        [styles.disconnected]: connectionStatus === "no",
-                        [styles.connecting]: connectionStatus === "loading"
-                    }
-                )}
-            ></div>
-            </div>
+                {/* 내가 추가한 버튼 */}
+                <div className={styles.myButtonWrapper}>
+                    <img
+                        src={
+                            connectionStatus === 'ok'
+                                ? chainIcon
+                                : chainOffIcon
+                        }
+                        className={styles.connectionIcon}
+                        draggable={false}
+                        title={
+                            connectionStatus === 'ok'
+                                ? 'Connected'
+                                : 'Disconnected'
+                        }
+                    />
+                </div>
 
          </div>
 
