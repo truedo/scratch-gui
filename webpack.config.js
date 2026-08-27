@@ -40,7 +40,8 @@ const baseConfig = new ScratchWebpackConfigBuilder(
         resolve: {
             fallback: {
                 Buffer: require.resolve('buffer/'),
-                stream: require.resolve('stream-browserify')
+                stream: require.resolve('stream-browserify'),
+                process: require.resolve('process/browser') // <- 이 줄을 추가합니다.
             }
         }
     })
@@ -54,6 +55,10 @@ const baseConfig = new ScratchWebpackConfigBuilder(
         'process.env.GA_ID': `"${process.env.GA_ID || 'UA-000000-01'}"`,
         'process.env.GTM_ENV_AUTH': `"${process.env.GTM_ENV_AUTH || ''}"`,
         'process.env.GTM_ID': process.env.GTM_ID ? `"${process.env.GTM_ID}"` : null
+    }))
+    // 여기에 ProvidePlugin을 추가하여 브라우저 환경에 전역 process 객체를 주입합니다.
+    .addPlugin(new webpack.ProvidePlugin({
+        process: 'process/browser'
     }))
     .addPlugin(new CopyWebpackPlugin({
         patterns: [

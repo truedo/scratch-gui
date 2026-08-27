@@ -58,7 +58,11 @@ import esp32BluetoothInsetIconURL from './zumiAI/zumiAI_bluetooth-small.svg';
 import esp32BluetoothConnectionIconURL from './gdxfor/gdxfor-illustration.svg';
 import esp32BluetoothConnectionSmallIconURL from './zumiAI/zumiAI_bluetooth-small.svg'; // insetIconURL과 동일하게 사용 가능
 
-
+// mqtt 이미지 파일 불러오기
+import mqttImage from "./mqtt/mqtt.png";
+import mqttInsetIconURL from "./mqtt/mqtt-small.png";
+// import mqttImage from './zumiAI/zumiAI.png';
+// import mqttInsetIconURL from './zumiAI/zumiAI_bluetooth-small.svg';
 
 
 export default [
@@ -338,6 +342,26 @@ export default [
     //     helpLink: 'https://scratch.mit.edu/vernier'
     // },
 
+
+    {
+        name: "Smart Link",
+        extensionId: "smartLink",
+        collaborator: "estea chen",
+        iconURL: mqttImage,
+        insetIconURL: mqttInsetIconURL,
+        description: (
+        <FormattedMessage
+            defaultMessage="Use Smart Link to send and receive messages."
+            description="Smart Link extension"
+            id="gui.extension.Mqtt.description"
+        />
+        ),
+        featured: true,
+
+        disabled: false,
+        internetConnectionRequired: true,
+    },
+
     // 👇 ESP32 Web Serial 확장자 정보 추가
     {
         name: 'Zumi AI (with dongle)', // 👈 다국어 처리 없이 한글 문자열 직접 입력
@@ -359,7 +383,7 @@ export default [
         description: (
             <FormattedMessage
                 id="gui.extension.zumiAIS.description"
-                defaultMessage="Zumi AI for Scratch 3 with Bluetooth"
+                defaultMessage="Zumi AI for Scratch 3 with Dongle"
             />
         ),
         featured: true,
@@ -411,7 +435,7 @@ export default [
         disabled: false,
 
         // Web Serial 통신 관련 설정 (Bluetooth 불필요)
-        bluetoothRequired: false,
+        bluetoothRequired: true,
         internetConnectionRequired: false,
 
         launchPeripheralConnectionFlow: false,
