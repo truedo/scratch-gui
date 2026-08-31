@@ -1,0 +1,55 @@
+{
+  "id": "01-01",
+  "stepTitle": "스크래치와 연결 원리",
+  "content": [
+     {
+      "type": "image",
+      "src": "scratch.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "heading",
+      "value": "스크래치는 MIT 미디어랩에서 만든 교육용, 블록 코딩 프로그램입니다."
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "블록팔레트에서 블록을 가져와서,\n 편집영역에 블록을 쌓고,\n 실행하여 무대영역을 제어할 수 있습니다."
+    },
+    {
+      "type": "text",
+      "variant": "emphasis",
+      "value": "주미AI를 무선으로 연결하여 제어할 수도 있습니다."
+    },
+
+
+    {
+      "type": "text",
+      "variant": "heading",
+      "value": "주미 AI는 어떻게 움직일까요?"
+    },
+
+     {
+      "type": "image",
+      "src": "how_move.png",
+      "alt": ""
+    },
+
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "주미AI는 동글(무선연결장치)을 사용하거나 \n블루투스 통신을 사용하여 \n주미AI에게 명령을 주고 받을 수 있습니다."
+    },
+
+
+
+
+
+
+    {
+      "type": "video",
+      "youtubeId": "frxhBY7a6Mo"
+    }
+  ]
+}

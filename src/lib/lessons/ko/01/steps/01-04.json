@@ -1,0 +1,29 @@
+{
+  "id": "01-04",
+  "stepTitle": "테스트",
+  "content": [
+    {
+      "type": "text",
+      "value": ""
+    },
+    {
+      "type": "image",
+      "src": "route-example.png",
+      "alt": ""
+    },
+    {
+      "type": "example",
+      "label": "example",
+      "fileName": ""
+    },
+    {
+      "type": "video",
+      "youtubeId": "dQw4w9WgXcQ"
+    },
+    {
+      "type": "link",
+      "label": "주미 사이트 바로가기",
+      "url": "https://zumi.co.kr/"
+    }
+  ]
+}

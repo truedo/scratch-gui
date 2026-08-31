@@ -1,0 +1,40 @@
+
+{
+    "id": "intro",
+    "stepTitle": "소개1",
+    "content": [
+
+        {
+            "type": "text",
+            "value": "1. 인터넷 주소 창에 ‘zumi.co.kr‘ 을 입력하여 사이트에 접속 합니다."
+        },
+
+        {
+            "type": "image",
+            "src": "route-example.png",
+            "alt": "경로 예시"
+        },
+
+        {
+            "type": "example",
+            "label": "해당 레슨의 예시코드",
+            "projectUrl": "example.sb3"
+        },
+
+        {
+            "type": "video",
+            "youtubeId": "dQw4w9WgXcQ"
+        },
+
+        {
+            "type": "link",
+            "label": "ZUMI 공식 매뉴얼 바로가기",
+            "url": "https://zumi.co.kr/"
+        },
+
+        {
+            "type": "text",
+            "value": "체크리스트를 완료한 후 다음 단계로 넘어가세요."
+        }
+    ]
+}

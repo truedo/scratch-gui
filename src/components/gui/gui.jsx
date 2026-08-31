@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import omit from 'lodash.omit';
 import PropTypes from 'prop-types';
-import React from 'react';
+// import React from 'react';
 import {defineMessages, FormattedMessage, injectIntl, intlShape} from 'react-intl';
 import {connect} from 'react-redux';
 import MediaQuery from 'react-responsive';
@@ -41,6 +41,12 @@ import codeIcon from './icon--code.svg';
 import costumesIcon from './icon--costumes.svg';
 import soundsIcon from './icon--sounds.svg';
 import DebugModal from '../debug-modal/debug-modal.jsx';
+
+
+import LessonPanel from '../lesson-panel/lesson-panel.jsx';
+import React, {useState} from 'react';
+// import lessons from '../../lib/lessons';
+import {getLessons} from '../../lib/lessons';
 
 const messages = defineMessages({
     addExtension: {
@@ -129,6 +135,64 @@ const GUIComponent = props => {
         vm,
         ...componentProps
     } = omit(props, 'dispatch');
+
+    const [lessonPanelVisible, setLessonPanelVisible] = useState(true);
+
+    const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
+    const [currentStepIndex, setCurrentStepIndex] = useState(0);
+
+    const currentLocale = intl.locale; // 'ko', 'en', 'ja', 'zh-cn' 등 뭐가 오든
+console.log('현재 언어:', currentLocale);
+
+
+    const lessons = getLessons(currentLocale);
+// console.log('lessons 배열:', lessons);        // 추가
+// console.log('lessons 길이:', lessons.length);  // 추가
+
+
+
+    const currentLesson = lessons[currentLessonIndex];
+
+    const currentSteps = currentLesson.steps;
+    const currentStep = currentSteps[currentStepIndex];
+
+    const hasNextStep = currentStepIndex < currentSteps.length - 1;
+    const hasPrevStep = currentStepIndex > 0;
+
+    const handleNextStep = () => {
+        if (hasNextStep) setCurrentStepIndex(currentStepIndex + 1);
+    };
+    const handlePrevStep = () => {
+        if (hasPrevStep) setCurrentStepIndex(currentStepIndex - 1);
+    };
+
+const handleGoToStep = index => {          // ← 이 함수가 실제로 있는지
+    setCurrentStepIndex(index);
+};
+
+const handleGoToLesson = (lessonIndex, stepIndex = 0) => {
+    setCurrentLessonIndex(lessonIndex);
+    setCurrentStepIndex(stepIndex);
+};
+
+
+const handleLoadExample = projectUrl => {
+    if (!projectUrl) return;
+
+    const isConfirmed = window.confirm(
+        '코드를 불러오면 현재 작업 중인 내용이 사라집니다. 진행할까요?'
+    );
+    if (!isConfirmed) return;
+
+    fetch(projectUrl)
+        .then(response => response.arrayBuffer())
+        .then(arrayBuffer => vm.loadProject(arrayBuffer))
+        .catch(err => {
+            console.error('예시 프로젝트 로드 실패:', err);
+            window.alert('예시 코드를 불러오지 못했습니다.');
+        });
+};
+
     if (children) {
         return <Box {...componentProps}>{children}</Box>;
     }
@@ -253,6 +317,35 @@ const GUIComponent = props => {
                 />
                 <Box className={styles.bodyWrapper}>
                     <Box className={styles.flexWrapper}>
+
+
+                        {/* {lessonPanelVisible ? (
+                            <LessonPanel
+                                lesson={currentLesson}
+                                onToggle={onToggleLessonPanel}
+                            />
+                        ) : null} */}
+
+                        {/* <LessonPanel isVisible={true} /> */}
+
+<LessonPanel
+    isVisible={lessonPanelVisible}
+    onToggle={() => setLessonPanelVisible(!lessonPanelVisible)}
+    lesson={currentLesson}
+    lessons={lessons}
+    currentLessonIndex={currentLessonIndex}
+    onGoToLesson={handleGoToLesson}
+    steps={currentSteps}
+    currentStepIndex={currentStepIndex}
+    currentStep={currentStep}
+    hasNext={hasNextStep}
+    hasPrev={hasPrevStep}
+    onNext={handleNextStep}
+    onPrev={handlePrevStep}
+    onGoToStep={handleGoToStep}
+    onLoadExample={handleLoadExample}
+/>
+
                         <Box className={styles.editorWrapper}>
                             <Tabs
                                 forceRenderTabPanel
@@ -370,6 +463,8 @@ const GUIComponent = props => {
                                 />
                             </Box>
                         </Box>
+
+
                     </Box>
                 </Box>
                 <DragLayer />
