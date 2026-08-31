@@ -14,7 +14,7 @@
     {
       "type": "example",
       "label": "example",
-      "fileName": ""
+      "src": "example.sb3"
     },
     {
       "type": "video",

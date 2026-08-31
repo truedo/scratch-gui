@@ -37,7 +37,7 @@ const ContentBlock = ({block, lessonId, onLoadExample}) => {
     }
 
     case 'image':
-        console.log('현재 경로:', buildImageUrl(lessonId, block.src));
+        // console.log('현재 경로:', buildImageUrl(lessonId, block.src));
         return (
             <img
                 className={styles.lessonImage}
@@ -62,7 +62,7 @@ const ContentBlock = ({block, lessonId, onLoadExample}) => {
         );
 
     case 'example':
-        console.log('현재 경로:', buildExampleUrl(lessonId, block.src));
+        // console.log('현재 경로:', buildExampleUrl(lessonId, block.src));
         return (
             <button
                 className={styles.exampleButton}
@@ -122,6 +122,16 @@ const LessonPanel = ({
     }, [currentLessonIndex, currentStepIndex]);   // 레슨이 바뀔 때도 같이 처리
 
 
+
+    const handleToggleClick = () => {
+        onToggle();
+
+        // CSS transition(flex-basis 0.2s)이 끝난 뒤에 resize 이벤트 발생
+        setTimeout(() => {
+            window.dispatchEvent(new Event('resize'));
+        }, 250); // transition 시간(0.2s)보다 살짝 여유있게
+    };
+
     const handleResizeStart = useCallback(e => {
         e.preventDefault();
         setIsResizing(true);
@@ -130,22 +140,33 @@ const LessonPanel = ({
     useEffect(() => {
         if (!isResizing) return;
 
-        const handleMouseMove = e => {
-            // 패널이 좌측에 있다고 가정: 마우스 x좌표가 곧 패널 너비
-            const newWidth = Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, e.clientX));
+        const getClientX = e => {
+            // 터치 이벤트와 마우스 이벤트의 좌표 위치가 다름
+            return e.touches ? e.touches[0].clientX : e.clientX;
+        };
+
+        const handleMove = e => {
+            const clientX = getClientX(e);
+            const newWidth = Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, clientX));
             setPanelWidth(newWidth);
         };
 
-        const handleMouseUp = () => {
+        const handleEnd = () => {
             setIsResizing(false);
+            window.dispatchEvent(new Event('resize'));
         };
 
-        window.addEventListener('mousemove', handleMouseMove);
-        window.addEventListener('mouseup', handleMouseUp);
+        // 마우스 + 터치 둘 다 등록
+        window.addEventListener('mousemove', handleMove);
+        window.addEventListener('mouseup', handleEnd);
+        window.addEventListener('touchmove', handleMove, {passive: false});
+        window.addEventListener('touchend', handleEnd);
 
         return () => {
-            window.removeEventListener('mousemove', handleMouseMove);
-            window.removeEventListener('mouseup', handleMouseUp);
+            window.removeEventListener('mousemove', handleMove);
+            window.removeEventListener('mouseup', handleEnd);
+            window.removeEventListener('touchmove', handleMove);
+            window.removeEventListener('touchend', handleEnd);
         };
     }, [isResizing]);
 
@@ -158,7 +179,7 @@ const LessonPanel = ({
             }}
         >
 
-            <button className={styles.toggleButton} onClick={onToggle}>
+            <button className={styles.toggleButton} onClick={handleToggleClick}>
                 {isVisible ? '◀' : '▶'}
             </button>
 
@@ -305,6 +326,7 @@ const LessonPanel = ({
                     <div
                         className={classNames(styles.resizeHandle, {[styles.isResizing]: isResizing})}
                         onMouseDown={handleResizeStart}
+                        onTouchStart={handleResizeStart}   // 추가
                     />
 
                 </div>
@@ -314,6 +336,7 @@ const LessonPanel = ({
         </div>
     );
 };
+
 
 LessonPanel.propTypes = {
     isVisible: PropTypes.bool,

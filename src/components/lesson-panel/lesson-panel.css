@@ -21,7 +21,7 @@
 
 .toggle-button {
     position: absolute;
-    top: 50%;
+    top: calc(50% - 45px);   /* 50% → 그립보다 위쪽으로 이동 */
     right: -1px;
     transform: translateY(-50%);
     width: 24px;
@@ -391,19 +391,45 @@
 
 .resize-handle {
     position: absolute;
-    top: 0;
-    right: -3px;
-    width: 6px;
-    height: 100%;
+    /* top: 50%;                 그대로 정중앙 유지 */
+    top: 52%;   /* 50% → 그립보다 위쪽으로 이동 */
+    right: -14px;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 60px;
+    border-radius: 14px;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
     cursor: col-resize;
     z-index: 20;
+    touch-action: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
 }
 
-.resize-handle:hover,
+.resize-handle::before,
+.resize-handle::after {
+    content: "";
+    width: 2px;
+    height: 20px;
+    border-radius: 1px;
+    background: #ccc;
+}
+
+.resize-handle:active,
 .resize-handle.is-resizing {
-    background: color-mix(in srgb, var(--lesson-color) 40%, transparent);
+    background: var(--lesson-color);
 }
 
+.resize-handle:active::before,
+.resize-handle:active::after,
+.resize-handle.is-resizing::before,
+.resize-handle.is-resizing::after {
+    background: white;
+}
 
 /* 텍스트 줄 바꿈 */
 
