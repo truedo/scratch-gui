@@ -1,0 +1,61 @@
+{
+  "id": "03-01",
+  "stepTitle": "화면 전환",
+  "content": [
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "카메라 화면, 표정, 문자 등을 미리 결정하고, \n상황에 맞게 해당 화면으로 전환해 주어야 합니다."
+    },
+    {
+      "type": "image",
+      "src": "block_camera.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "블록의 오른쪽에 있는 버튼을 눌러 한 가지 화면이\n보여지도록 선택 할 수 있습니다.\n\n카메라 화면에서는\n얼굴,고양이,색상,마커 등을 인식 할 수 있으며\n\n표정 화면 에서는\n검은색의 눈동자 애니메이션이 띄워진 형태로\n주미 AI의 다양한 표정을 변경 시킬 수 있습니다.\n"
+    },
+    {
+      "type": "text",
+      "variant": "warning",
+      "value": "화면 설정이 카메라로 되어 있다면\n표정 변경 명령을 내려도, 사용자가 변화를 확인 할 수 없습니다.\n"
+    },
+    {
+      "type": "text",
+      "variant": "heading",
+      "value": "따라하기"
+    },
+    {
+      "type": "text",
+      "variant": "emphasis",
+      "value": "키보드를 눌러 주미 AI의 화면을 전환 프로그램을 만들어 봅니다."
+    },
+    {
+      "type": "image",
+      "src": "example_camera1.png",
+      "alt": ""
+    },
+    {
+      "type": "example",
+      "label": "동글 사용 예제",
+      "src": "ex_camera_01.sb3"
+    },
+    {
+      "type": "text",
+      "variant": "emphasis",
+      "value": "주미 AI의 화면을 전환하고 상태를 표시하는 프로그램을 만들어 봅니다.\n"
+    },
+    {
+      "type": "image",
+      "src": "example_camera2.png",
+      "alt": ""
+    },
+    {
+      "type": "example",
+      "label": "동글 사용 예제",
+      "src": "ex_camera_02.sb3"
+    }
+  ]
+}

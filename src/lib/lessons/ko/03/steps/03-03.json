@@ -1,0 +1,61 @@
+{
+  "id": "03-03",
+  "stepTitle": "표정",
+  "content": [
+    {
+      "type": "image",
+      "src": "emotion_list.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "화면 변경 블록을 사용해 ‘표정’ 화면으로 바꾸면, 주미 AI의 디스플레이에 \n기본 표정이 나타납니다. 이 때 표정 변경 블록을 함께 사용하면,\n기본 표정뿐만 아니라 웃는 얼굴, 화난 얼굴, 놀란 얼굴 등\n다양한 감정을 표현하는 여러 가지 표정으로 바꿀 수 있습니다.\n\n이 기능을 이용하면 주미 AI가 단순히 동작하는 것뿐 아니라,\n상황에 맞는 표정을 보여 주며 더 생동감 있고 감정이 풍부한 \n반응을 하도록 만들 수 있습니다.\n"
+    },
+    {
+      "type": "image",
+      "src": "block_emotion.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "블록의 오른쪽에 있는 버튼을 클릭하면 주미 AI의 표정을 바꿀 수 있습니다.\n\n주미 AI에는 다음과 같이 총 14가지 표정이 있습니다.\n끄기, 정지, 깜빡임, 웃음, 사랑, 충격, 놀람,\n기쁨, 분노, 졸림, 슬픔, 어지러움, 잠들기, 감지\n\n이 버튼을 눌러 원하는 표정으로 바꿀 수도 있고,\n다른 블록과 연결하여 프로그램 동작에 따라 자동으로 표정이 바뀌도록 만들 수도 있습니다.\n\n단, 이 블록을 사용하기 전에 반드시 화면 전환 블록을 이용해 화면을 ‘표정’ 상태로 설정해야, 표정이 제대로 표시됩니다.\n"
+    },
+    {
+      "type": "text",
+      "variant": "heading",
+      "value": "따라하기\n"
+    },
+    {
+      "type": "text",
+      "variant": "emphasis",
+      "value": "스페이스바를 눌러 표정이 자동으로 바뀌는 프로그램을 만들어 봅니다.\n"
+    },
+    {
+      "type": "image",
+      "src": "example_emotion1.png",
+      "alt": ""
+    },
+    {
+      "type": "example",
+      "label": "동글 사용 예제",
+      "src": "ex_emotion_01.sb3"
+    },
+    {
+      "type": "text",
+      "variant": "emphasis",
+      "value": "입력받은 표정을 출력하는 프로그램을 만들어봅니다.\n"
+    },
+    {
+      "type": "image",
+      "src": "example_emotion2.png",
+      "alt": ""
+    },
+    {
+      "type": "example",
+      "label": "동글 사용 예제",
+      "src": "ex_emotion_02.sb3"
+    }
+  ]
+}

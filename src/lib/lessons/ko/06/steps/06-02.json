@@ -1,0 +1,76 @@
+{
+  "id": "06-02",
+  "stepTitle": "하단 감지 센서",
+  "content": [
+    {
+      "type": "image",
+      "src": "sensor_bottom1.png",
+      "alt": ""
+    },
+    {
+      "type": "image",
+      "src": "sensor_bottom2.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "주미 AI의 아래쪽에는 하단의 물체를 감지 할 수 있는 센서가 \n왼쪽 · 중앙 · 오른쪽 으로 3개가 있습니다.\n\n이 전방 센서는 각각 송신부와 수신부 2개의 센서로 구성이 되어 있으며\n송신부에서 적외선을 보내면 물체에 튕겨 나온 적외선을 수신부가 \n수신 하고, 이 시간을 계산하여\n\n전방 감지 센서는 물체와의 거리를 계산 합니다.\n"
+    },
+    {
+      "type": "image",
+      "src": "block_sensor_bottom1.png",
+      "alt": ""
+    },
+    {
+      "type": "image",
+      "src": "block_sensor_bottom2.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "변수탭에서 변수만들기를 클릭하여\n하단센서 (왼쪽) / 하단센서 (중앙) / 하단센서 (오른쪽) 변수를 \n만들어주고 각각의 변수 값을 \n\n위 그림 처럼 IR 센서 값으로 정의 하도록\n블록을 만들어줍니다.\n"
+    },
+    {
+      "type": "text",
+      "variant": "heading",
+      "value": "따라하기"
+    },
+    {
+      "type": "text",
+      "variant": "emphasis",
+      "value": "하단 센서 값을 감지하는 프로그램 만들기"
+    },
+    {
+      "type": "image",
+      "src": "ex_sensor_bottom1.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "warning",
+      "value": "모든 주미 AI의 하단 센서 측정 값이 같은 것은 아니며,\n센서의 값은 주미 AI 마다 조금씩 다르게 값이 다르게 \n나타날 수 있습니다.\n"
+    },
+    {
+      "type": "example",
+      "label": "동글 사용 예제",
+      "src": "ex_sensor_bottom_01.sb3"
+    },
+    {
+      "type": "text",
+      "variant": "emphasis",
+      "value": "검은색/흰색 바닥을 감지하는 프로그램\n"
+    },
+    {
+      "type": "image",
+      "src": "ex_sensor_bottom2.png",
+      "alt": ""
+    },
+    {
+      "type": "example",
+      "label": "동글 사용 예제",
+      "src": "ex_sensor_bottom_02.sb3"
+    }
+  ]
+}

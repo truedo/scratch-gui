@@ -353,7 +353,7 @@ export default [
         <FormattedMessage
             defaultMessage="Use Smart Link to send and receive messages."
             description="Smart Link extension"
-            id="gui.extension.Mqtt.description"
+            id="gui.extension.smartLink.description"
         />
         ),
         featured: true,

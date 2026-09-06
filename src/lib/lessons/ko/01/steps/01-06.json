@@ -1,0 +1,48 @@
+{
+  "id": "01-06",
+  "stepTitle": "소개1",
+  "content": [
+    {
+      "type": "text",
+      "variant": "warning",
+      "value": "테스트2"
+    },
+    {
+      "type": "hint",
+      "prompt": "",
+      "showLabel": "보이기",
+      "hideLabel": "숨기기",
+      "answer": [
+        {
+          "type": "text",
+          "variant": "body",
+          "value": "하하"
+        },
+        {
+          "type": "image",
+          "src": "connect_check1.png",
+          "alt": ""
+        },
+        {
+          "type": "example",
+          "label": "동글 사용 예제",
+          "src": "ext.sb3"
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "question": "너는누그니",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "answerIndex": 0,
+      "correctMessage": "정답",
+      "incorrectMessage": "땡"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "id": "01-04",
+  "stepTitle": "테스트1",
+  "content": [
+    {
+      "type": "text",
+      "value": ""
+    },
+    {
+      "type": "image",
+      "src": "route-example.png",
+      "alt": ""
+    },
+    {
+      "type": "example",
+      "label": "example",
+      "src": "example.sb3"
+    },
+    {
+      "type": "video",
+      "youtubeId": "ELV7zEwtW6c"
+    },
+    {
+      "type": "link",
+      "label": "주미 사이트 바로가기",
+      "url": "https://zumi.co.kr/"
+    },
+
+    {
+      "type": "quiz",
+      "question": "정사각형을 그리려면 반복 블록을 몇 번 돌려야 할까요?",
+      "options": ["2번", "3번", "4번", "6번"],
+      "answerIndex": 2,
+      "correctMessage": "정답이에요! 정사각형은 4개의 변으로 이루어져 있죠.",
+      "incorrectMessage": "다시 한번 생각해보세요. 정사각형의 변이 몇 개인지 세어보세요."
+    },
+
+    {
+        "type": "hint",
+        "prompt": "정사각형을 그리려면 반복 블록 안에 어떤 값을 넣어야 할까요?",
+        "showLabel": "정답 확인하기",
+        "hideLabel": "정답 접기",
+        "answer": [
+            {"type": "text", "value": "반복을 4번, 각도를 90도로 설정하면 정사각형이 그려져요."},
+            {"type": "image", "src": "route-example.png", "alt": "정답 스크린샷"},
+            {"type": "example", "label": "정답 코드 불러오기", "src": "square-answer.sb3"},
+            {"type": "video", "youtubeId": "ELV7zEwtW6c"}
+        ]
+    }
+
+  ]
+}

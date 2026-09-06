@@ -17,6 +17,120 @@ const buildImageUrl = (lessonId, filename) =>
 const buildExampleUrl = (lessonId, filename) =>
     `/static/lessons/${lessonId}/example/${filename}`;
 
+
+const QuizBlock = ({block}) => {
+    const [selectedIndex, setSelectedIndex] = useState(null);
+
+    const isAnswered = selectedIndex !== null;
+    const isCorrect = selectedIndex === block.answerIndex;
+
+    const correctMessage = block.correctMessage || '정답이에요!';
+    const incorrectMessage = block.incorrectMessage || '다시 한번 시도해보세요.';
+
+    const handleSelect = index => {
+        if (isAnswered) return; // 한번 답을 고르면 다른 답으로 못 바꾸게 (재도전은 별도 버튼으로)
+        setSelectedIndex(index);
+    };
+
+    const handleRetry = () => {
+        setSelectedIndex(null);
+    };
+
+    return (
+        <div className={styles.quizBlock}>
+            <p className={styles.quizQuestion}>{block.question}</p>
+
+            <ul className={styles.quizOptions}>
+                {block.options.map((option, i) => {
+                    const isSelected = i === selectedIndex;
+                    const isThisCorrect = i === block.answerIndex;
+
+                    return (
+                        <li key={i}>
+                            <button
+                                className={classNames(styles.quizOption, {
+                                    [styles.quizOptionSelected]: isSelected && !isAnswered,
+                                    [styles.quizOptionCorrect]: isAnswered && isThisCorrect && isCorrect,      // isCorrect 조건 추가
+                                    [styles.quizOptionIncorrect]: isAnswered && isSelected && !isCorrect,
+                                    [styles.quizOptionDisabled]: isAnswered && !isSelected && !(isThisCorrect && isCorrect)  // 여기도 같이 수정
+                                })}
+                                disabled={isAnswered}
+                                onClick={() => handleSelect(i)}
+                            >
+                                {option}
+                            </button>
+                        </li>
+                    );
+                })}
+            </ul>
+
+            {isAnswered && (
+                <div className={classNames(styles.quizFeedback, {
+                    [styles.quizFeedbackCorrect]: isCorrect,
+                    [styles.quizFeedbackIncorrect]: !isCorrect
+                })}>
+                    <p>{isCorrect ? correctMessage : incorrectMessage}</p>
+                    {!isCorrect && (
+                        <button className={styles.quizRetryButton} onClick={handleRetry}>
+                            다시 풀기
+                        </button>
+                    )}
+                </div>
+            )}
+        </div>
+    );
+};
+
+QuizBlock.propTypes = {
+    block: PropTypes.object.isRequired
+};
+
+const HintBlock = ({block, lessonId, onLoadExample}) => {
+    const [isAnswerVisible, setAnswerVisible] = useState(false);
+
+    const showLabel = block.showLabel || '해답 보기';
+    const hideLabel = block.hideLabel || '해답 숨기기';
+
+    return (
+        <div className={styles.hintBlock}>
+            <p className={styles.hintPrompt}>{block.prompt}</p>
+
+            <button
+                className={classNames(styles.hintToggleButton, {
+                    [styles.hintToggleButtonOpen]: isAnswerVisible
+                })}
+                onClick={() => setAnswerVisible(!isAnswerVisible)}
+            >
+                <span>{isAnswerVisible ? hideLabel : showLabel}</span>
+                <span className={classNames(styles.hintChevron, {
+                    [styles.isOpen]: isAnswerVisible
+                })}>
+                    ▼
+                </span>
+            </button>
+
+            {isAnswerVisible && (
+                <div className={styles.hintAnswerBox}>
+                    {block.answer.map((answerBlock, i) => (
+                        <ContentBlock
+                            key={i}
+                            block={answerBlock}
+                            lessonId={lessonId}
+                            onLoadExample={onLoadExample}
+                        />
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+};
+
+HintBlock.propTypes = {
+    block: PropTypes.object.isRequired,
+    lessonId: PropTypes.string.isRequired,
+    onLoadExample: PropTypes.func
+};
+
 const ContentBlock = ({block, lessonId, onLoadExample}) => {
     switch (block.type) {
 
@@ -46,6 +160,17 @@ const ContentBlock = ({block, lessonId, onLoadExample}) => {
             />
         );
 
+    case 'example':
+        // console.log('현재 경로:', buildExampleUrl(lessonId, block.src));
+        return (
+            <button
+                className={styles.exampleButton}
+                onClick={() => onLoadExample(buildExampleUrl(lessonId, block.src))}
+            >
+                {block.label || '예시 코드 불러오기'}
+            </button>
+        );
+
     case 'video':
         return (
             <div className={styles.videoWrapper}>
@@ -61,16 +186,6 @@ const ContentBlock = ({block, lessonId, onLoadExample}) => {
             </div>
         );
 
-    case 'example':
-        // console.log('현재 경로:', buildExampleUrl(lessonId, block.src));
-        return (
-            <button
-                className={styles.exampleButton}
-                onClick={() => onLoadExample(buildExampleUrl(lessonId, block.src))}
-            >
-                {block.label || '예시 코드 불러오기'}
-            </button>
-        );
 
     case 'link':
         return (
@@ -83,6 +198,18 @@ const ContentBlock = ({block, lessonId, onLoadExample}) => {
                 {block.label || block.url}
             </a>
         );
+
+    case 'hint':
+        return (
+            <HintBlock
+                block={block}
+                lessonId={lessonId}
+                onLoadExample={onLoadExample}
+            />
+        );
+
+    case 'quiz':
+        return <QuizBlock block={block} />;
 
     default:
         return null;
@@ -101,7 +228,7 @@ ContentBlock.propTypes = {
 };
 
 const LessonPanel = ({
-    isVisible, onToggle,
+    isVisible, onToggle, shouldPulse,
     lesson, lessons, currentLessonIndex, onGoToLesson,
     steps, currentStepIndex, currentStep,
     hasNext, hasPrev, onNext, onPrev, onGoToStep,
@@ -111,6 +238,7 @@ const LessonPanel = ({
     const [isLessonListOpen, setLessonListOpen] = useState(false);
     const [panelWidth, setPanelWidth] = useState(DEFAULT_WIDTH);
     const [isResizing, setIsResizing] = useState(false);
+    const [isPulsing, setIsPulsing] = useState(shouldPulse);
 
     const contentRef = useRef(null);   // 추가
 
@@ -121,6 +249,14 @@ const LessonPanel = ({
         }
     }, [currentLessonIndex, currentStepIndex]);   // 레슨이 바뀔 때도 같이 처리
 
+    useEffect(() => {
+        if (!shouldPulse) return;
+
+        setIsPulsing(true);
+        const timer = setTimeout(() => setIsPulsing(false), 3000);
+
+        return () => clearTimeout(timer);
+    }, [shouldPulse]);
 
 
     const handleToggleClick = () => {
@@ -172,14 +308,23 @@ const LessonPanel = ({
 
     return (
         <div
-            className={classNames(styles.lessonPanelWrapper, {[styles.isCollapsed]: !isVisible})}
+            className={classNames(styles.lessonPanelWrapper, {
+                [styles.isCollapsed]: !isVisible,
+                [styles.pulseWrapper]: isPulsing
+                })}
             style={{
                 '--lesson-color': lesson.color,
                 flexBasis: isVisible ? `${panelWidth}px` : undefined
             }}
         >
 
-            <button className={styles.toggleButton} onClick={handleToggleClick}>
+            {/* <button className={styles.toggleButton} onClick={handleToggleClick}>
+                {isVisible ? '◀' : '▶'}
+            </button> */}
+            <button
+                className={classNames(styles.toggleButton, {[styles.pulse]: isPulsing})}
+                onClick={handleToggleClick}
+            >
                 {isVisible ? '◀' : '▶'}
             </button>
 

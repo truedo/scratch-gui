@@ -1,0 +1,91 @@
+{
+  "id": "07-01",
+  "stepTitle": "카메라 감지",
+  "content": [
+    {
+      "type": "image",
+      "src": "camera1.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "주미 AI의 앞쪽에 장착되어 있는 카메라를 활용하면, \n사람이나 고양이와 같은 다양한 물체를 인식할 수 있으며, \n\n여러 가지 색상이나 \n특정 마커까지 감지하고 식별할 수 있는 기능을 가지고 있습니다. \n\n이를 통해 주변 환경을 보다 정확하게 이해하고, \n다양한 상황에서 유용하게 활용할 수 있습니다.\n"
+    },
+    {
+      "type": "image",
+      "src": "block_camera1.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "각각의 블록을 사용해서\n얼굴 감지 / 고양이 감지 / 색상 감지 / 마커 감지 를 \n켜거나 끌 수 있으며\n\n사람이나 고양이가 인식 되면 \nTrue / False 로 값을 받아오거나\n\n마커나/색상이 감지 되면 \n마커의 ID 나 감지된 색상 값 그리고\n각각의 X,Y 값 같은 좌표도 받아 올 수도 있습니다.\n"
+    },
+    {
+      "type": "text",
+      "variant": "heading",
+      "value": "따라하기"
+    },
+    {
+      "type": "text",
+      "variant": "emphasis",
+      "value": "사람의 얼굴을 감지하는 프로그램을 만들어 봅니다."
+    },
+    {
+      "type": "image",
+      "src": "ex_camera1.png",
+      "alt": ""
+    },
+    {
+      "type": "example",
+      "label": "동글 사용 예제",
+      "src": "ex_camera_01.sb3"
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "고양이를 감지하는 프로그램을 만들어 봅니다.\n"
+    },
+    {
+      "type": "image",
+      "src": "ex_camera2.png",
+      "alt": ""
+    },
+    {
+      "type": "example",
+      "label": "동글 사용 예제",
+      "src": "ex_camera_02.sb3"
+    },
+    {
+      "type": "text",
+      "variant": "emphasis",
+      "value": "색상(빨간색,주황색,노란색)을 감지하는 프로그램을 만들어 봅니다.\n"
+    },
+    {
+      "type": "image",
+      "src": "ex_camera3.png",
+      "alt": ""
+    },
+    {
+      "type": "example",
+      "label": "동글 사용 예제",
+      "src": "ex_camera_03.sb3"
+    },
+    {
+      "type": "text",
+      "variant": "emphasis",
+      "value": "마커를 인식하는 프로그램을 만들어 봅니다.\n"
+    },
+    {
+      "type": "image",
+      "src": "ex_camera4.png",
+      "alt": ""
+    },
+    {
+      "type": "example",
+      "label": "동글 사용 예제",
+      "src": "ex_camera_04.sb3"
+    }
+  ]
+}

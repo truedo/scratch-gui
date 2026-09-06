@@ -1,0 +1,31 @@
+{
+  "id": "02-01",
+  "stepTitle": "LED 이해하기",
+  "content": [
+    {
+      "type": "text",
+      "variant": "heading",
+      "value": "LED란?"
+    },
+    {
+      "type": "text",
+      "variant": "emphasis",
+      "value": "LED 는 R = Red (빨강) , G = Green (녹색) B = Blue (파란색) 가 있으며\n각각의 색상을 켜고,끄거나 밝기를 조절하여 원하는 색상을 만들 수 있습니다.\n"
+    },
+    {
+      "type": "image",
+      "src": "led_on.png",
+      "alt": ""
+    },
+    {
+      "type": "image",
+      "src": "led_color_select.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "주미 AI는 앞쪽에 LED가 있습니다. 이 LED는 코딩을 통하여 켜거나 끌 수 있고 다양한 색상을 표시 할 수 있으며, 간단한 애니메이션 동작도 가능합니다."
+    }
+  ]
+}

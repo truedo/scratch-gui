@@ -1,0 +1,44 @@
+{
+  "id": "02-03",
+  "stepTitle": "LED 패턴",
+  "content": [
+    {
+      "type": "image",
+      "src": "block_led_pattern.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "커서 부분을 클릭하면\nLED의 다양한 패턴 애니메이션을\n선택 할 수 있습니다.\n또한 1로 되어있는 부분의 숫자를 변경하면\n패턴의 반복 시간이 달라집니다.\n"
+    },
+    {
+      "type": "image",
+      "src": "led_pattern.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "heading",
+      "value": "미션"
+    },
+    {
+      "type": "hint",
+      "prompt": "키보드를 눌러 LED 패턴을 변경하는 프로그램을 만들어 봅니다.",
+      "showLabel": "예제 보기",
+      "hideLabel": "예제 숨기기",
+      "answer": [
+        {
+          "type": "image",
+          "src": "pattern_example.png",
+          "alt": ""
+        },
+        {
+          "type": "example",
+          "label": "동글 사용 예제",
+          "src": "ex_pattern_01.sb3"
+        }
+      ]
+    }
+  ]
+}

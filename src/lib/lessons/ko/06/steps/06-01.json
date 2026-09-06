@@ -1,0 +1,71 @@
+{
+  "id": "06-01",
+  "stepTitle": "전방 감지 센서",
+  "content": [
+    {
+      "type": "image",
+      "src": "sensor_front1.png",
+      "alt": ""
+    },
+    {
+      "type": "image",
+      "src": "sensor_front2.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "주미 AI의 앞쪽에는 전방의 물체를 감지 할 수 있는 센서가 \n좌 · 우 로 2개가 있습니다.\n\n이 전방 센서는 각각 송신부와 수신부 2개의 센서로 구성이 되어 있으며\n송신부에서 적외선을 보내면 물체에 튕겨 나온 적외선을 수신부가 \n수신 하고, 이 시간을 계산하여\n\n전방 감지 센서는 물체와의 거리를 계산 합니다.\n"
+    },
+    {
+      "type": "image",
+      "src": "block_sensor1.png",
+      "alt": ""
+    },
+    {
+      "type": "image",
+      "src": "block_sensor2.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "변수 탭에서 변수만들기를 클릭하여, 전방센서 (왼쪽) / 전방센서 (오른쪽) 변수를 만들어주고\n각각의 변수 값을 \n위 그림 처럼 IR 센서 값으로 정의 하도록\n블록을 만들어줍니다.\n"
+    },
+    {
+      "type": "text",
+      "variant": "heading",
+      "value": "따라하기"
+    },
+    {
+      "type": "text",
+      "variant": "emphasis",
+      "value": "전방 센서 값을 감지하는 프로그램 만들기"
+    },
+    {
+      "type": "image",
+      "src": "ex_sensor_front1.png",
+      "alt": ""
+    },
+    {
+      "type": "example",
+      "label": "동글 사용 예제",
+      "src": "ex_sensor_front_01.sb3"
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "전방에 물체가 감지 되면 빨간색 LED와 경고를 표시하는 프로그램"
+    },
+    {
+      "type": "image",
+      "src": "ex_sensor_front2.png",
+      "alt": ""
+    },
+    {
+      "type": "example",
+      "label": "동글 사용 예제",
+      "src": "ex_sensor_front_02.sb3"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "id": "02-02",
+  "stepTitle": "LED 색상 블록",
+  "content": [
+    {
+      "type": "text",
+      "variant": "heading",
+      "value": "LED 제어하기 (색상 선택)\n"
+    },
+    {
+      "type": "image",
+      "src": "block_led_set2.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "LED 색상 부분을 클릭하면, 색상 선택창이 나타나고, 색상을 설정하여 블록을 사용하면, \n주미 AI의  LED 색상을 변하게 하는 블록 입니다.\n"
+    },
+    {
+      "type": "text",
+      "variant": "heading",
+      "value": "LED 색상 바꾸기 (수치값으로 색상 변경)\n"
+    },
+    {
+      "type": "image",
+      "src": "block_led_set.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "위 블록을 사용하여 색상 값을 입력하여 주미 AI의 LED를 \n표현 할 수도 있습니다.\n아래의 예시를 보면 빨강 + 녹색 = 노란색 처렴 표시 될 수 있습니다.\n"
+    },
+    {
+      "type": "image",
+      "src": "block_led_set3.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "heading",
+      "value": "미션"
+    },
+    {
+      "type": "hint",
+      "prompt": "키보드를 눌러 LED 색상을 변경하는 프로그램을 만들어 봅니다.",
+      "showLabel": "예제 보기",
+      "hideLabel": "예제 숨기기",
+      "answer": [
+        {
+          "type": "image",
+          "src": "led_example.png",
+          "alt": ""
+        },
+        {
+          "type": "example",
+          "label": "동글 사용 예제",
+          "src": "ex_led_01.sb3"
+        }
+      ]
+    }
+  ]
+}

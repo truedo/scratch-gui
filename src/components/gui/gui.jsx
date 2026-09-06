@@ -44,7 +44,8 @@ import DebugModal from '../debug-modal/debug-modal.jsx';
 
 
 import LessonPanel from '../lesson-panel/lesson-panel.jsx';
-import React, {useState} from 'react';
+// import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 // import lessons from '../../lib/lessons';
 import {getLessons} from '../../lib/lessons';
 
@@ -59,6 +60,16 @@ const messages = defineMessages({
 // Cache this value to only retrieve it once the first time.
 // Assume that it doesn't change for a session.
 let isRendererSupported = null;
+
+
+const getInitialLessonPanelVisible = () => {
+    try {
+        const saved = window.localStorage.getItem('lessonPanelVisible');
+        return saved === null ? true : saved === 'true';
+    } catch (e) {
+        return true;
+    }
+};
 
 const GUIComponent = props => {
     const {
@@ -136,13 +147,14 @@ const GUIComponent = props => {
         ...componentProps
     } = omit(props, 'dispatch');
 
-    const [lessonPanelVisible, setLessonPanelVisible] = useState(true);
-
+    const [lessonPanelVisible, setLessonPanelVisible] = useState(getInitialLessonPanelVisible);
+    const [shouldPulse, setShouldPulse] = useState(true);
     const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
     const [currentStepIndex, setCurrentStepIndex] = useState(0);
+    const [lessonMenuOpen, setLessonMenuOpen] = useState(false);
 
     const currentLocale = intl.locale; // 'ko', 'en', 'ja', 'zh-cn' 등 뭐가 오든
-console.log('현재 언어:', currentLocale);
+// console.log('현재 언어:', currentLocale);
 
 
     const lessons = getLessons(currentLocale);
@@ -159,6 +171,7 @@ console.log('현재 언어:', currentLocale);
     const hasNextStep = currentStepIndex < currentSteps.length - 1;
     const hasPrevStep = currentStepIndex > 0;
 
+
     const handleNextStep = () => {
         if (hasNextStep) setCurrentStepIndex(currentStepIndex + 1);
     };
@@ -169,6 +182,14 @@ console.log('현재 언어:', currentLocale);
 const handleGoToStep = index => {          // ← 이 함수가 실제로 있는지
     setCurrentStepIndex(index);
 };
+
+useEffect(() => {
+    try {
+        window.localStorage.setItem('lessonPanelVisible', String(lessonPanelVisible));
+    } catch (e) {
+        // 무시
+    }
+}, [lessonPanelVisible]);
 
 const handleGoToLesson = (lessonIndex, stepIndex = 0) => {
     setCurrentLessonIndex(lessonIndex);
@@ -314,6 +335,12 @@ const handleLoadExample = projectUrl => {
                     onShare={onShare}
                     onStartSelectingFileUpload={onStartSelectingFileUpload}
                     onToggleLoginOpen={onToggleLoginOpen}
+
+                    lessonMenuOpen={lessonMenuOpen}
+                    lessonPanelVisible={lessonPanelVisible}
+                    onClickLesson={() => setLessonMenuOpen(true)}
+                    onRequestCloseLesson={() => setLessonMenuOpen(false)}
+                    onToggleLessonPanel={() => setLessonPanelVisible(!lessonPanelVisible)}
                 />
                 <Box className={styles.bodyWrapper}>
                     <Box className={styles.flexWrapper}>
@@ -330,7 +357,11 @@ const handleLoadExample = projectUrl => {
 
 <LessonPanel
     isVisible={lessonPanelVisible}
-    onToggle={() => setLessonPanelVisible(!lessonPanelVisible)}
+    shouldPulse={shouldPulse}
+    onToggle={() => {
+        setLessonPanelVisible(!lessonPanelVisible);
+        setShouldPulse(false);
+    }}
     lesson={currentLesson}
     lessons={lessons}
     currentLessonIndex={currentLessonIndex}
@@ -443,9 +474,9 @@ const handleLoadExample = projectUrl => {
                                     {soundsTabVisible ? <SoundTab vm={vm} /> : null}
                                 </TabPanel>
                             </Tabs>
-                            {backpackVisible ? (
+                            {/* {backpackVisible ? (
                                 <Backpack host={backpackHost} />
-                            ) : null}
+                            ) : null} */}
                         </Box>
 
                         <Box className={classNames(styles.stageAndTargetWrapper, styles[stageSize])}>

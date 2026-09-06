@@ -1,0 +1,76 @@
+{
+  "id": "04-02",
+  "stepTitle": "문자 설정",
+  "content": [
+    {
+      "type": "image",
+      "src": "text_set.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "주미 AI의 디스플레이에 출력 되는 문자는 여러가지 설정을 가지고 있습니다.\n\n기본적 인 값으로는, 문자는 흰색 색상을 가지고 크기가 5 이며, \nX,Y 좌표가 정 중앙에 오도록 표시 되지만, 이러한 설정 값 들도\n블록코딩 내에서 다시 설정 할 수 있습니다.\n\n이러한 설정 값을 사용하면 사용자에게 정보를 줄 때 \n다양한 애니메이션 효과를 적용하여 정보를 전달 할 수도 있습니다.\n"
+    },
+    {
+      "type": "image",
+      "src": "block_text_color.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "문자(=글자)의 색상을 \n흰색,검정,남색,파랑,하늘색,청록색,틸색,초록색,연두색,라임색\n노랑색,호박색,주황색,짙은주황색,갈색,청회색,회색 중 \n1가지 색상을 선택하여 변경하고, (기본값 흰색)\n\n문자의 크기를 1~5 크기로 변경 합니다. (기본값 5)\n"
+    },
+    {
+      "type": "image",
+      "src": "block_text_position1.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "문자의 X,Y 좌표 값을 설정 합니다.\n"
+    },
+    {
+      "type": "image",
+      "src": "block_text_position2.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "heading",
+      "value": "따라하기\n"
+    },
+    {
+      "type": "text",
+      "variant": "emphasis",
+      "value": "Hello Zumi’ 글씨가 커졌다 작아졌다를 반복하는 프로그램 만들기"
+    },
+    {
+      "type": "image",
+      "src": "example_text_set1.png",
+      "alt": ""
+    },
+    {
+      "type": "example",
+      "label": "동글 사용 예제",
+      "src": "ex_test_set_01.sb3"
+    },
+    {
+      "type": "text",
+      "variant": "emphasis",
+      "value": "‘Hello Zumi’ 글씨가 좌우로 이동을 반복하는 프로그램 만들기\n"
+    },
+    {
+      "type": "image",
+      "src": "example_text_set2.png",
+      "alt": ""
+    },
+    {
+      "type": "example",
+      "label": "동글 사용 예제",
+      "src": "ex_test_set_02.sb3"
+    }
+  ]
+}

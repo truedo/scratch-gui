@@ -502,3 +502,209 @@
     font-size: 0.7rem;
     font-weight: 800;
 }
+
+
+
+/*숨기기 버튼 펄스 애니메이션*/
+
+.toggle-button.pulse {
+    animation: lesson-pulse-ring 1.2s ease-out 3, lesson-pulse-scale 1.2s ease-out 3;
+}
+
+@keyframes lesson-pulse-ring {
+    0% {
+        box-shadow: 0 0 0 0 color-mix(in srgb, var(--lesson-color) 70%, transparent);
+    }
+    70% {
+        box-shadow: 0 0 0 20px color-mix(in srgb, var(--lesson-color) 0%, transparent);
+    }
+    100% {
+        box-shadow: 0 0 0 0 color-mix(in srgb, var(--lesson-color) 0%, transparent);
+    }
+}
+
+@keyframes lesson-pulse-scale {
+    0%, 100% {
+        transform: translateY(-50%) scale(1);
+    }
+    30% {
+        transform: translateY(-50%) scale(1.25);
+    }
+}
+
+.lesson-panel-wrapper.is-collapsed.pulse-wrapper {
+    animation: lesson-collapsed-glow 1.2s ease-out 3;
+}
+
+@keyframes lesson-collapsed-glow {
+    0%, 100% {
+        background-color: white;
+    }
+    50% {
+        background-color: color-mix(in srgb, var(--lesson-color) 15%, white);
+    }
+}
+
+
+/*hint*/
+.hint-block {
+    margin: 0.7rem 0;
+}
+
+.hint-prompt {
+    margin: 0 0 0.6rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.hint-toggle-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.6rem 0.9rem;
+    background: color-mix(in srgb, var(--lesson-color) 10%, white);
+    border: 1px solid color-mix(in srgb, var(--lesson-color) 30%, white);
+    border-radius: 0.6rem;
+    color: color-mix(in srgb, var(--lesson-color) 75%, black);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.hint-toggle-button:hover {
+    background: color-mix(in srgb, var(--lesson-color) 18%, white);
+}
+
+/* 열려있을 때: 아래쪽 모서리를 각지게 해서 answer-box와 하나로 이어붙임 */
+.hint-toggle-button.hint-toggle-button-open {
+    border-radius: 0.6rem 0.6rem 0 0;
+    border-bottom: none;
+    background: var(--lesson-color);
+    color: white;
+}
+
+.hint-chevron {
+    font-size: 0.7rem;
+    transition: transform 0.15s ease;
+}
+
+.hint-chevron.is-open {
+    transform: rotate(180deg);
+}
+
+/* 답 영역 전체를 감싸는 테두리 - 버튼과 이어지도록 위쪽 모서리는 각지게 */
+.hint-answer-box {
+    padding: 0.8rem 0.9rem;
+    background: color-mix(in srgb, var(--lesson-color) 4%, white);
+    border: 1px solid color-mix(in srgb, var(--lesson-color) 30%, white);
+    border-top: none;
+    border-radius: 0 0 0.6rem 0.6rem;
+}
+
+.hint-answer-box > *:not(:last-child) {
+    margin-bottom: 0.6rem;
+}
+
+/*quiz*/
+.quiz-block {
+    margin: 0.7rem 0;
+    padding: 0.8rem 0.9rem;
+    background: color-mix(in srgb, var(--lesson-color) 5%, white);
+    border: 1px solid color-mix(in srgb, var(--lesson-color) 20%, white);
+    border-radius: 0.6rem;
+}
+
+.quiz-question {
+    margin: 0 0 0.7rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.quiz-options {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.quiz-option {
+    width: 100%;
+    text-align: left;
+    padding: 0.55rem 0.8rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.5rem;
+    background: white;
+    font-size: 0.82rem;
+    color: #444;
+    cursor: pointer;
+    transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.quiz-option:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--lesson-color) 8%, white);
+    border-color: color-mix(in srgb, var(--lesson-color) 40%, white);
+}
+
+.quiz-option:disabled {
+    cursor: default;
+}
+
+.quiz-option-correct {
+    background: #e6f7ed;
+    border-color: #34c759;
+    color: #1e8a44;
+    font-weight: 600;
+}
+
+.quiz-option-incorrect {
+    background: #fdecea;
+    border-color: #f44336;
+    color: #c62828;
+    font-weight: 600;
+}
+
+.quiz-option-disabled {
+    opacity: 0.5;
+}
+
+.quiz-feedback {
+    margin-top: 0.7rem;
+    padding: 0.6rem 0.8rem;
+    border-radius: 0.5rem;
+    font-size: 0.82rem;
+}
+
+.quiz-feedback-correct {
+    background: #e6f7ed;
+    color: #1e8a44;
+}
+
+.quiz-feedback-incorrect {
+    background: #fdecea;
+    color: #c62828;
+}
+
+.quiz-feedback p {
+    margin: 0 0 0.5rem;
+}
+
+.quiz-retry-button {
+    padding: 0.4rem 0.9rem;
+    background: white;
+    border: 1px solid #f44336;
+    border-radius: 1rem;
+    color: #c62828;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.quiz-retry-button:hover {
+    background: #fdecea;
+}

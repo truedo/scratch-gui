@@ -1,0 +1,81 @@
+{
+  "id": "04-01",
+  "stepTitle": "문자 출력하기",
+  "content": [
+    {
+      "type": "image",
+      "src": "text.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "화면 변경 블록을 사용해 화면을 ‘카메라’나 ‘표정’으로 바꾼 뒤,\n문자 출력 블록을 실행하면 주미 AI의 디스플레이 상단에 문자가 표시됩니다.\n\n이때 표시되는 문자는 단순히 내가 입력한 글자뿐만 아니라,\n변수의 값이나 다양한 메시지, 정보 등을 함께 보여 줄 수 있습니다.\n\n이 기능을 활용하면 프로그램이 어떤 상태인지 \n사용자에게 알리는 역할을 할 수 있습니다.\n"
+    },
+    {
+      "type": "image",
+      "src": "block_text_write.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "주미 AI의 디스플레이에 \n쓰여진 문자를 출력 합니다.\n"
+    },
+    {
+      "type": "image",
+      "src": "block_text_write2.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "이미 문자가 출력 되고 있다면\n아래 줄에 문자를 이어서 출력 합니다.\n"
+    },
+    {
+      "type": "image",
+      "src": "block_text_eraser.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "디스플레이에 출력 되고 있는 모든 글자를 지웁니다.\n"
+    },
+    {
+      "type": "text",
+      "variant": "heading",
+      "value": "따라하기\n"
+    },
+    {
+      "type": "text",
+      "variant": "emphasis",
+      "value": "이름을 물어보고 주미 AI와 말풍선으로 출력하는 프로그램\n"
+    },
+    {
+      "type": "image",
+      "src": "example_text1.png",
+      "alt": ""
+    },
+    {
+      "type": "example",
+      "label": "동글 사용 예제",
+      "src": "ex_text_01.sb3"
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "가위바위보를 하고 주미 AI에서 결과를 출력하는 \n프로그램을 만들어봅니다.\n"
+    },
+    {
+      "type": "image",
+      "src": "example_text2.png",
+      "alt": ""
+    },
+    {
+      "type": "example",
+      "label": "동글 사용 예제",
+      "src": "ex_text_02.sb3"
+    }
+  ]
+}

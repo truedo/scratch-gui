@@ -1,0 +1,66 @@
+{
+  "id": "05-01",
+  "stepTitle": "이동하기",
+  "content": [
+    {
+      "type": "image",
+      "src": "move.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "주미 AI는 2개의 바퀴를 가지고 있으며, 이를 통해 \n왼쪽(=좌회전) 또는 오른쪽으로(=우회전) 회전이 가능합니다.\n\n위 사진 처럼 위에서 봤을 때, 왼쪽으로 회전 할 때에는 왼쪽 바퀴보다 \n오른쪽 바퀴를 더 많이 회전 시켜서 좌회전 시키며\n\n오른쪽으로 회전 할 때에는 왼쪽 바퀴를 더 많이 회전 시켜서 우회전 합니다.\n"
+    },
+    {
+      "type": "image",
+      "src": "block_move_01.png",
+      "alt": ""
+    },
+    {
+      "type": "text",
+      "variant": "body",
+      "value": "블록의 가장 왼쪽에 있는 버튼을 클릭하여 앞/뒤 를 선택하면\n 주미 AI를 앞쪽(전진) 또는 뒤쪽(후진) 시킬 수 있습니다.\n\n또한 보통 버튼을 클릭하여 느리게/보통/빠르게 를 선택하여\n이동하는 속도를 설정 할 수도 있습니다.\n\n그리고 10으로 되어 있는 숫자를 설정하면 \n이동거리를 설정 할 수도 있습니다.\n"
+    },
+    {
+      "type": "text",
+      "variant": "warning",
+      "value": "※ 이동 거리를 설정 할 때 10 보다 작은 숫자나 9999 같이\n   너무 큰 숫자를 입력하게 되면 \n   주미 AI 의 이동 거리가 정확하지 않을 수 있으며, \n   이렇게 잘못 된 수치 기입은 프로그램의 오류를 \n   발생 시킬 수도 있습니다.\n"
+    },
+    {
+      "type": "text",
+      "variant": "heading",
+      "value": "따라하기"
+    },
+    {
+      "type": "text",
+      "variant": "emphasis",
+      "value": "키보드를 눌러 주미 AI를 앞/뒤로 이동하는 프로그램을 만들어 봅니다."
+    },
+    {
+      "type": "image",
+      "src": "ex_move1.png",
+      "alt": ""
+    },
+    {
+      "type": "example",
+      "label": "동글 사용 예제",
+      "src": "ex_move_01.sb3"
+    },
+    {
+      "type": "text",
+      "variant": "emphasis",
+      "value": "전진/후진하는 동안 녹색/하늘색 LED를 켜는 프로그램\n"
+    },
+    {
+      "type": "image",
+      "src": "ex_move2.png",
+      "alt": ""
+    },
+    {
+      "type": "example",
+      "label": "동글 사용 예제",
+      "src": "ex_move_02.sb3"
+    }
+  ]
+}

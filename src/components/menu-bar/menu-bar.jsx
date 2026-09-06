@@ -620,6 +620,68 @@ class MenuBar extends React.Component {
                             </div>
                         )}
                     </div>
+
+
+
+                    {/* 레슨 추가 */}
+                    <div
+                        className={classNames(styles.menuBarItem, styles.hoverable, {
+                            [styles.active]: this.props.lessonMenuOpen
+                        })}
+                        onMouseUp={() => {
+                            if (!this.props.lessonMenuOpen) {
+                                this.props.onClickLesson();
+                            }
+                        }}
+                    >
+                        <span className={styles.collapsibleLabel}>
+                            <FormattedMessage
+                                defaultMessage="Lesson"
+                                description="Text for lesson dropdown menu"
+                                id="gui.menuBar.lesson"
+                            />
+                        </span>
+                        <img src={dropdownCaret} />
+                        <MenuBarMenu
+                            className={classNames(styles.menuBarMenu)}
+                            open={this.props.lessonMenuOpen}
+                            place={this.props.isRtl ? 'left' : 'right'}
+                            onRequestClose={this.props.onRequestCloseLesson}
+                        >
+                            <MenuSection>
+                            <MenuItem onClick={() => {
+                                // console.log('클릭됨, onToggleLessonPanel:', this.props.onToggleLessonPanel);
+                                this.props.onToggleLessonPanel();
+                            }}>
+                            {this.props.lessonPanelVisible ? (
+                                <FormattedMessage
+                                    defaultMessage="Hide Lesson"
+                                    description="Menu item to hide the lesson panel"
+                                    id="gui.menuBar.lessonHide"
+                                />
+                            ) : (
+                                <FormattedMessage
+                                    defaultMessage="Show Lesson"
+                                    description="Menu item to show the lesson panel"
+                                    id="gui.menuBar.lessonShow"
+                                />
+                            )}
+                            </MenuItem>
+                            </MenuSection>
+                        </MenuBarMenu>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+{/*
                     {this.props.canEditTitle ? (
                         <div className={classNames(styles.menuBarItem, styles.growable)}>
                             <MenuBarItemTooltip
@@ -639,8 +701,10 @@ class MenuBar extends React.Component {
                             userId={this.props.authorId}
                             username={this.props.authorUsername}
                         />
-                    ) : null)}
-                    <div className={classNames(styles.menuBarItem)}>
+                    ) : null)} */}
+
+
+                    {/* <div className={classNames(styles.menuBarItem)}>
                         {this.props.canShare ? (
                             (this.props.isShowingProject || this.props.isUpdating) && (
                                 <ProjectWatcher onDoneUpdating={this.props.onSeeCommunity}>
@@ -649,11 +713,9 @@ class MenuBar extends React.Component {
                                             <ShareButton
                                                 className={styles.menuBarButton}
                                                 isShared={this.props.isShared}
-                                                /* eslint-disable react/jsx-no-bind */
                                                 onClick={() => {
                                                     this.handleClickShare(waitForUpdate);
                                                 }}
-                                                /* eslint-enable react/jsx-no-bind */
                                             />
                                         )
                                     }
@@ -667,7 +729,9 @@ class MenuBar extends React.Component {
                             ) : []
                         )}
                         {this.props.canRemix ? remixButton : []}
-                    </div>
+                    </div> */}
+
+{/*
                     <div className={classNames(styles.menuBarItem, styles.communityButtonWrapper)}>
                         {this.props.enableCommunity ? (
                             (this.props.isShowingProject || this.props.isUpdating) && (
@@ -676,11 +740,9 @@ class MenuBar extends React.Component {
                                         waitForUpdate => (
                                             <CommunityButton
                                                 className={styles.menuBarButton}
-                                                /* eslint-disable react/jsx-no-bind */
                                                 onClick={() => {
                                                     this.handleClickSeeCommunity(waitForUpdate);
                                                 }}
-                                                /* eslint-enable react/jsx-no-bind */
                                             />
                                         )
                                     }
@@ -691,10 +753,12 @@ class MenuBar extends React.Component {
                                 <CommunityButton className={styles.menuBarButton} />
                             </MenuBarItemTooltip>
                         ) : [])}
-                    </div>
+                    </div> */}
+
+
                     <Divider className={classNames(styles.divider)} />
                     <div className={styles.fileGroup}>
-                        <div
+                        {/* <div
                             aria-label={this.props.intl.formatMessage(ariaMessages.tutorials)}
                             className={
                                 classNames(styles.menuBarItem, styles.noOffset, styles.hoverable, 'tutorials-button')
@@ -708,7 +772,7 @@ class MenuBar extends React.Component {
                             <span className={styles.tutorialsLabel}>
                                 <FormattedMessage {...ariaMessages.tutorials} />
                             </span>
-                        </div>
+                        </div> */}
                         {/* <div
                             aria-label={this.props.intl.formatMessage(ariaMessages.debug)}
                             className={classNames(styles.menuBarItem, styles.noOffset, styles.hoverable)}
@@ -812,7 +876,7 @@ class MenuBar extends React.Component {
                             {this.props.showComingSoon ? (
                                 <React.Fragment>
                                     <MenuBarItemTooltip id="mystuff">
-                                        <div
+                                        {/* <div
                                             className={classNames(
                                                 styles.menuBarItem,
                                                 styles.hoverable,
@@ -823,9 +887,9 @@ class MenuBar extends React.Component {
                                                 className={styles.mystuffIcon}
                                                 src={mystuffIcon}
                                             />
-                                        </div>
+                                        </div> */}
                                     </MenuBarItemTooltip>
-                                    <MenuBarItemTooltip
+                                    {/* <MenuBarItemTooltip
                                         id="account-nav"
                                         place={this.props.isRtl ? 'right' : 'left'}
                                     >
@@ -848,7 +912,7 @@ class MenuBar extends React.Component {
                                                 src={dropdownCaret}
                                             />
                                         </div>
-                                    </MenuBarItemTooltip>
+                                    </MenuBarItemTooltip> */}
                                 </React.Fragment>
                             ) : []}
                         </React.Fragment>
@@ -944,7 +1008,12 @@ MenuBar.propTypes = {
     showComingSoon: PropTypes.bool,
     username: PropTypes.string,
     userOwnsProject: PropTypes.bool,
-    vm: PropTypes.instanceOf(VM).isRequired
+    vm: PropTypes.instanceOf(VM).isRequired,
+    lessonMenuOpen: PropTypes.bool,
+    lessonPanelVisible: PropTypes.bool,
+    onClickLesson: PropTypes.func,
+    onRequestCloseLesson: PropTypes.func,
+    onToggleLessonPanel: PropTypes.func
 };
 
 MenuBar.defaultProps = {

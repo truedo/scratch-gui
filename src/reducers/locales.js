@@ -2,8 +2,14 @@ import {addLocaleData} from 'react-intl';
 
 import {localeData, isRtl} from 'scratch-l10n';
 import editorMessages from 'scratch-l10n/locales/editor-msgs';
+import customMessages from '../lib/custom-l10n-messages';
 
 addLocaleData(localeData);
+
+// 어떤 messagesByLocale이 들어오든 커스텀 ko 메시지를 항상 덧씌우는 헬퍼
+const withCustomMessages = messagesByLocale => Object.assign({}, messagesByLocale, {
+    ko: Object.assign({}, messagesByLocale.ko, customMessages.ko)
+});
 
 const UPDATE_LOCALES = 'scratch-gui/locales/UPDATE_LOCALES';
 const SELECT_LOCALE = 'scratch-gui/locales/SELECT_LOCALE';
@@ -11,8 +17,8 @@ const SELECT_LOCALE = 'scratch-gui/locales/SELECT_LOCALE';
 const initialState = {
     isRtl: false,
     locale: 'en',
-    messagesByLocale: editorMessages,
-    messages: editorMessages.en
+    messagesByLocale: withCustomMessages(editorMessages),
+    messages: withCustomMessages(editorMessages).en
 };
 
 const reducer = function (state, action) {
@@ -29,8 +35,8 @@ const reducer = function (state, action) {
         return Object.assign({}, state, {
             isRtl: state.isRtl,
             locale: state.locale,
-            messagesByLocale: action.messagesByLocale,
-            messages: action.messagesByLocale[state.locale]
+            messagesByLocale: withCustomMessages(action.messagesByLocale), // 👈 여기서도 재병합
+            messages: withCustomMessages(action.messagesByLocale)[state.locale]
         });
     default:
         return state;
