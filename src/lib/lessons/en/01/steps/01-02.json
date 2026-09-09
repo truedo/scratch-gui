@@ -1,5 +1,50 @@
 {
-    "id": "intro",
-    "stepTitle": "소개2",
-    "content": []
+  "id": "01-02",
+  "stepTitle": "소개1",
+  "content": [
+    {
+      "type": "text",
+      "variant": "warning",
+      "value": "테스트2"
+    },
+    {"type": "divider"},
+     {"type": "divider"},
+    {
+      "type": "hint",
+      "prompt": "주미 AI 후진하기\n깃발 아이콘을 눌렀을 때 주미 AI가 보통 속도로 20cm 후진하도록 \n코딩해 봅니다.",
+      "showLabel": "보이기",
+      "hideLabel": "숨기기",
+      "answer": [
+        {
+          "type": "text",
+          "variant": "body",
+          "value": "하하"
+        },
+        {
+          "type": "image",
+          "src": "connect_check1.png",
+          "alt": ""
+        },
+        {
+          "type": "example",
+          "label": "동글 사용 예제",
+          "src": "ext.sb3"
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "question": "너는누구니",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "answerIndex": 0,
+      "correctMessage": "정답",
+      "incorrectMessage": "땡"
+    }
+  ]
 }

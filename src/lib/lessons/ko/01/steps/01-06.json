@@ -7,9 +7,11 @@
       "variant": "warning",
       "value": "테스트2"
     },
+    {"type": "divider"},
+     {"type": "divider"},
     {
       "type": "hint",
-      "prompt": "",
+      "prompt": "주미 AI 후진하기\n깃발 아이콘을 눌렀을 때 주미 AI가 보통 속도로 20cm 후진하도록 \n코딩해 봅니다.",
       "showLabel": "보이기",
       "hideLabel": "숨기기",
       "answer": [
@@ -32,7 +34,7 @@
     },
     {
       "type": "quiz",
-      "question": "너는누그니",
+      "question": "너는누구니",
       "options": [
         "1",
         "2",

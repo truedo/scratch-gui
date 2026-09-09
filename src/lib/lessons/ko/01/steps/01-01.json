@@ -22,6 +22,7 @@
       "variant": "emphasis",
       "value": "주미AI를 무선으로 연결하여 제어할 수도 있습니다."
     },
+     {"type": "divider"},
     {
       "type": "text",
       "variant": "heading",

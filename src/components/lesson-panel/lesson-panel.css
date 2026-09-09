@@ -60,10 +60,13 @@
 }
 
 .lesson-image {
-    width: 100%;
+    max-width: 100%;   /* width: 100% → max-width: 100%로 변경 */
     height: auto;
     border-radius: 4px;
-    margin: 0.5rem 0;
+    /* margin: 0.5rem 0; */
+    cursor: zoom-in;
+    margin: 0.5rem auto;   /* 좌우 auto로 중앙 정렬 */
+    display: block;         /* img는 기본 inline이라 margin auto가 안 먹으니 block 필요 */
 }
 
 /* ---------- 이전/다음 버튼 ---------- */
@@ -556,6 +559,7 @@
     font-size: 0.85rem;
     font-weight: 600;
     color: #333;
+    white-space: pre-line;   /* 이 줄 추가 */
 }
 
 .hint-toggle-button {
@@ -622,6 +626,7 @@
     font-size: 0.85rem;
     font-weight: 600;
     color: #333;
+    white-space: pre-line;
 }
 
 .quiz-options {
@@ -707,4 +712,138 @@
 
 .quiz-retry-button:hover {
     background: #fdecea;
+}
+
+
+
+
+.lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    cursor: zoom-out;
+    animation: lightbox-fade-in 0.15s ease;
+}
+
+@keyframes lightbox-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.lightbox-image {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    cursor: default;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+
+
+
+.step-checkmark {
+    display: inline-flex;
+    margin-right: 0.4rem;
+    color: #34c759;
+    font-weight: 700;
+}
+
+
+
+
+
+.understand-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.6rem 0.8rem;
+    background: color-mix(in srgb, var(--lesson-color) 6%, white);
+    border: 1px solid color-mix(in srgb, var(--lesson-color) 20%, white);
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: color-mix(in srgb, var(--lesson-color) 70%, black);
+    cursor: pointer;
+    user-select: none;
+}
+
+.understand-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--lesson-color);
+    cursor: pointer;
+}
+
+
+
+
+
+
+.lesson-list-item-title {
+    flex: 1;
+}
+
+.lesson-progress-badge {
+    flex-shrink: 0;
+    padding: 0.15rem 0.5rem;
+    border-radius: 1rem;
+    background: color-mix(in srgb, var(--item-color) 15%, white);
+    color: var(--item-color);
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.lesson-progress-badge-complete {
+    background: #34c759;
+    color: white;
+}
+
+/* 선택된(active) 레슨 항목 안의 뱃지는 배경이 이미 진한 색이니 대비 맞춰서 */
+.lesson-list-item-active .lesson-progress-badge {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+}
+
+.lesson-list-item-active .lesson-progress-badge-complete {
+    background: white;
+    color: #34c759;
+}
+
+
+
+
+.lesson-divider {
+    margin: 1.2rem 0;
+    border: none;
+    border-top: 1px solid color-mix(in srgb, var(--lesson-color) 20%, #e0e0e0);
 }

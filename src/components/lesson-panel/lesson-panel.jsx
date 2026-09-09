@@ -4,7 +4,7 @@ import styles from './lesson-panel.css';
 // import React, {useState, useEffect, useCallback} from 'react';
 // import classNames from 'classnames';
 import React, {useState, useEffect, useCallback, useRef} from 'react';
-
+import {FormattedMessage} from 'react-intl';   // 이 줄 추가
 
 const MIN_WIDTH = 240;
 // const MAX_WIDTH = 600;
@@ -24,8 +24,8 @@ const QuizBlock = ({block}) => {
     const isAnswered = selectedIndex !== null;
     const isCorrect = selectedIndex === block.answerIndex;
 
-    const correctMessage = block.correctMessage || '정답이에요!';
-    const incorrectMessage = block.incorrectMessage || '다시 한번 시도해보세요.';
+    const correctMessage = block.correctMessage || 'Correct!';
+    const incorrectMessage = block.incorrectMessage || 'Try again.';
 
     const handleSelect = index => {
         if (isAnswered) return; // 한번 답을 고르면 다른 답으로 못 바꾸게 (재도전은 별도 버튼으로)
@@ -71,9 +71,13 @@ const QuizBlock = ({block}) => {
                 })}>
                     <p>{isCorrect ? correctMessage : incorrectMessage}</p>
                     {!isCorrect && (
-                        <button className={styles.quizRetryButton} onClick={handleRetry}>
-                            다시 풀기
-                        </button>
+                    <button className={styles.quizRetryButton} onClick={handleRetry}>
+                        <FormattedMessage
+                            defaultMessage="Retry"
+                            description="Button to retry a quiz question"
+                            id="gui.lessonPanel.retry"
+                        />
+                    </button>
                     )}
                 </div>
             )}
@@ -88,8 +92,8 @@ QuizBlock.propTypes = {
 const HintBlock = ({block, lessonId, onLoadExample}) => {
     const [isAnswerVisible, setAnswerVisible] = useState(false);
 
-    const showLabel = block.showLabel || '해답 보기';
-    const hideLabel = block.hideLabel || '해답 숨기기';
+    const showLabel = block.showLabel || 'Show Answer';
+    const hideLabel = block.hideLabel || 'Hide Answer';
 
     return (
         <div className={styles.hintBlock}>
@@ -131,7 +135,7 @@ HintBlock.propTypes = {
     onLoadExample: PropTypes.func
 };
 
-const ContentBlock = ({block, lessonId, onLoadExample}) => {
+const ContentBlock = ({block, lessonId, onLoadExample, onImageClick}) => {
     switch (block.type) {
 
     case 'text': {
@@ -150,15 +154,18 @@ const ContentBlock = ({block, lessonId, onLoadExample}) => {
         return <p className={variantClass}>{block.value}</p>;
     }
 
+
     case 'image':
         // console.log('현재 경로:', buildImageUrl(lessonId, block.src));
-        return (
-            <img
-                className={styles.lessonImage}
-                src={buildImageUrl(lessonId, block.src)}
-                alt={block.alt || ''}
-            />
-        );
+    return (
+        <img
+            className={styles.lessonImage}
+            src={buildImageUrl(lessonId, block.src)}
+            alt={block.alt || ''}
+            loading="lazy"
+            onClick={() => onImageClick(buildImageUrl(lessonId, block.src))}
+        />
+    );
 
     case 'example':
         // console.log('현재 경로:', buildExampleUrl(lessonId, block.src));
@@ -167,7 +174,7 @@ const ContentBlock = ({block, lessonId, onLoadExample}) => {
                 className={styles.exampleButton}
                 onClick={() => onLoadExample(buildExampleUrl(lessonId, block.src))}
             >
-                {block.label || '예시 코드 불러오기'}
+                {block.label || 'Load Example Code'}
             </button>
         );
 
@@ -211,6 +218,11 @@ const ContentBlock = ({block, lessonId, onLoadExample}) => {
     case 'quiz':
         return <QuizBlock block={block} />;
 
+
+    case 'divider':
+        return <hr className={styles.lessonDivider} />;
+
+
     default:
         return null;
     }
@@ -232,15 +244,19 @@ const LessonPanel = ({
     lesson, lessons, currentLessonIndex, onGoToLesson,
     steps, currentStepIndex, currentStep,
     hasNext, hasPrev, onNext, onPrev, onGoToStep,
-    onLoadExample
+    onLoadExample, completedSteps, onToggleComplete
 }) => {
     const [isStepListOpen, setStepListOpen] = useState(false);
     const [isLessonListOpen, setLessonListOpen] = useState(false);
     const [panelWidth, setPanelWidth] = useState(DEFAULT_WIDTH);
     const [isResizing, setIsResizing] = useState(false);
     const [isPulsing, setIsPulsing] = useState(shouldPulse);
+    const [lightboxImage, setLightboxImage] = useState(null);
+
+    const isCurrentStepDone = (completedSteps[lesson.id] || []).includes(currentStep.id);
 
     const contentRef = useRef(null);   // 추가
+
 
     // 스텝이 바뀔 때마다 스크롤을 맨 위로
     useEffect(() => {
@@ -344,7 +360,13 @@ const LessonPanel = ({
                         className={styles.lessonListToggle}
                         onClick={() => setLessonListOpen(!isLessonListOpen)}
                     >
-                        <span>전체 레슨 목록</span>
+                        <span>
+                            <FormattedMessage
+                                defaultMessage="All Lessons"
+                                description="Button to toggle the full lesson list"
+                                id="gui.lessonPanel.allLessons"
+                            />
+                        </span>
                         <span className={classNames(styles.lessonListChevron, {[styles.isOpen]: isLessonListOpen})}>
                             ▼
                         </span>
@@ -352,22 +374,39 @@ const LessonPanel = ({
 
                     {isLessonListOpen && (
                         <ul className={styles.lessonList}>
-                            {lessons.map((l, i) => (
-                                <li key={l.id} style={{'--item-color': l.color}}>
-                                    <button
-                                        className={classNames(styles.lessonListItem, {
-                                            [styles.lessonListItemActive]: i === currentLessonIndex
-                                        })}
-                                        onClick={() => {
-                                            onGoToLesson(i);
-                                            setLessonListOpen(false);
-                                        }}
-                                    >
-                                        <span className={styles.lessonListItemNumber}>{i + 1}</span>
-                                        {l.title}
-                                    </button>
-                                </li>
-                            ))}
+                            {lessons.map((l, i) => {
+                                const doneCount = (completedSteps[l.id] || []).length;
+                                const totalCount = l.steps.length;
+                                const isComplete = doneCount === totalCount;
+
+                                return (
+                                    <li key={l.id} style={{'--item-color': l.color}}>
+                                        <button
+                                            className={classNames(styles.lessonListItem, {
+                                                [styles.lessonListItemActive]: i === currentLessonIndex
+                                            })}
+                                            onClick={() => {
+                                                onGoToLesson(i);
+                                                setLessonListOpen(false);
+                                            }}
+                                        >
+                                            <span className={styles.lessonListItemNumber}>{i + 1}</span>
+                                            <span className={styles.lessonListItemTitle}>{l.title}</span>
+                                            <span className={classNames(styles.lessonProgressBadge, {
+                                                [styles.lessonProgressBadgeComplete]: isComplete
+                                            })}>
+                                                {isComplete ? (
+                                                    <FormattedMessage
+                                                        defaultMessage="Done"
+                                                        description="Badge shown when all steps in a lesson are completed"
+                                                        id="gui.lessonPanel.lessonDone"
+                                                    />
+                                                ) : `${doneCount}/${totalCount}`}
+                                            </span>
+                                        </button>
+                                    </li>
+                                );
+                            })}
                         </ul>
                     )}
 
@@ -409,24 +448,51 @@ const LessonPanel = ({
 
                     {isStepListOpen && (
                         <ul className={styles.stepList}>
-                            {steps.map((step, i) => (
-                                <li key={step.id}>
-                                    <button
-                                        className={classNames(styles.stepListItem, {
-                                            [styles.stepListItemActive]: i === currentStepIndex
-                                        })}
-                                        onClick={() => {
-                                            onGoToStep(i);
-                                            setStepListOpen(false);
-                                        }}
-                                    >
-                                        {i + 1}. {step.stepTitle}
-                                    </button>
-                                </li>
-                            ))}
+                            {steps.map((step, i) => {
+                                const isDone = (completedSteps[lesson.id] || []).includes(step.id);
+
+                                return (
+                                    <li key={step.id}>
+                                        <button
+                                            className={classNames(styles.stepListItem, {
+                                                [styles.stepListItemActive]: i === currentStepIndex
+                                            })}
+                                            onClick={() => {
+                                                onGoToStep(i);
+                                                setStepListOpen(false);
+                                            }}
+                                        >
+                                            {isDone && <span className={styles.stepCheckmark}>✓</span>}
+                                            {i + 1}. {step.stepTitle}
+                                        </button>
+                                    </li>
+                                );
+                            })}
                         </ul>
                     )}
 
+
+
+
+                    {lightboxImage && (
+                        <div
+                            className={styles.lightboxOverlay}
+                            onClick={() => setLightboxImage(null)}
+                        >
+                            <img
+                                className={styles.lightboxImage}
+                                src={lightboxImage}
+                                alt=""
+                                onClick={e => e.stopPropagation()}  // 이미지 자체 클릭은 안 닫히게
+                            />
+                            <button
+                                className={styles.lightboxClose}
+                                onClick={() => setLightboxImage(null)}
+                            >
+                                ✕
+                            </button>
+                        </div>
+                    )}
 
 
 
@@ -438,8 +504,25 @@ const LessonPanel = ({
                             block={block}
                             lessonId={lesson.id}
                             onLoadExample={onLoadExample}
+                            onImageClick={setLightboxImage}   // 상태 setter를 그대로 넘김
                         />
                     ))}
+
+                    <label className={styles.understandCheckbox}>
+                        <input
+                            type="checkbox"
+                            checked={isCurrentStepDone}
+                            onChange={onToggleComplete}
+                        />
+                        <span>
+                            <FormattedMessage
+                                defaultMessage="I understand"
+                                description="Checkbox label to mark a step as understood"
+                                id="gui.lessonPanel.understand"
+                            />
+                        </span>
+                    </label>
+
 
                     {/* {currentStep.exampleProjectUrl && (
                         <button className={styles.exampleButton} onClick={onLoadExample}>
@@ -453,7 +536,11 @@ const LessonPanel = ({
                                 className={classNames(styles.navButton, styles.navButtonPrev)}
                                 onClick={onPrev}
                             >
-                                {'< 이전'}
+                                <FormattedMessage
+                                    defaultMessage="< Prev"
+                                    description="Button to go to the previous step"
+                                    id="gui.lessonPanel.prevStep"
+                                />
                             </button>
                         )}
                         {hasNext && (
@@ -461,7 +548,11 @@ const LessonPanel = ({
                                 className={classNames(styles.navButton, styles.navButtonNext)}
                                 onClick={onNext}
                             >
-                                {'다음 >'}
+                                <FormattedMessage
+                                    defaultMessage="Next >"
+                                    description="Button to go to the next step"
+                                    id="gui.lessonPanel.nextStep"
+                                />
                             </button>
                         )}
                     </div>

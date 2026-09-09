@@ -54,6 +54,21 @@ const messages = defineMessages({
         id: 'gui.gui.addExtension',
         description: 'Button to add an extension in the target pane',
         defaultMessage: 'Add Extension'
+    },
+    confirmResetProgress: {
+        id: 'gui.gui.confirmResetProgress',
+        description: 'Confirmation message before resetting lesson progress',
+        defaultMessage: 'Reset completion checks for all lessons?'
+    },
+    confirmLoadExample: {
+        id: 'gui.gui.confirmLoadExample',
+        description: 'Confirmation message before loading an example project',
+        defaultMessage: 'Loading this code will erase your current work. Continue?'
+    },
+    loadExampleFailed: {
+        id: 'gui.gui.loadExampleFailed',
+        description: 'Alert message when loading an example project fails',
+        defaultMessage: 'Failed to load the example code.'
     }
 });
 
@@ -61,6 +76,16 @@ const messages = defineMessages({
 // Assume that it doesn't change for a session.
 let isRendererSupported = null;
 
+const PROGRESS_STORAGE_KEY = 'lessonProgress';
+
+const getInitialProgress = () => {
+    try {
+        const saved = window.localStorage.getItem(PROGRESS_STORAGE_KEY);
+        return saved ? JSON.parse(saved) : {};
+    } catch (e) {
+        return {};
+    }
+};
 
 const getInitialLessonPanelVisible = () => {
     try {
@@ -152,6 +177,7 @@ const GUIComponent = props => {
     const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
     const [currentStepIndex, setCurrentStepIndex] = useState(0);
     const [lessonMenuOpen, setLessonMenuOpen] = useState(false);
+    const [completedSteps, setCompletedSteps] = useState(getInitialProgress);
 
     const currentLocale = intl.locale; // 'ko', 'en', 'ja', 'zh-cn' 등 뭐가 오든
 // console.log('현재 언어:', currentLocale);
@@ -160,6 +186,44 @@ const GUIComponent = props => {
     const lessons = getLessons(currentLocale);
 // console.log('lessons 배열:', lessons);        // 추가
 // console.log('lessons 길이:', lessons.length);  // 추가
+
+const handleToggleComplete = () => {
+    const lessonId = currentLesson.id;
+    const stepId = currentStep.id;
+
+    setCompletedSteps(prev => {
+        const lessonProgress = prev[lessonId] || [];
+        const isDone = lessonProgress.includes(stepId);
+
+        const updated = {
+            ...prev,
+            [lessonId]: isDone
+                ? lessonProgress.filter(id => id !== stepId)
+                : [...lessonProgress, stepId]
+        };
+
+        try {
+            window.localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(updated));
+        } catch (e) {
+            // 무시
+        }
+
+        return updated;
+    });
+};
+
+
+const handleResetProgress = () => {
+    const isConfirmed = window.confirm(intl.formatMessage(messages.confirmResetProgress));
+    if (!isConfirmed) return;
+
+    setCompletedSteps({});
+    try {
+        window.localStorage.removeItem(PROGRESS_STORAGE_KEY);
+    } catch (e) {
+        // 무시
+    }
+};
 
 
 
@@ -191,6 +255,7 @@ useEffect(() => {
     }
 }, [lessonPanelVisible]);
 
+
 const handleGoToLesson = (lessonIndex, stepIndex = 0) => {
     setCurrentLessonIndex(lessonIndex);
     setCurrentStepIndex(stepIndex);
@@ -200,17 +265,15 @@ const handleGoToLesson = (lessonIndex, stepIndex = 0) => {
 const handleLoadExample = projectUrl => {
     if (!projectUrl) return;
 
-    const isConfirmed = window.confirm(
-        '코드를 불러오면 현재 작업 중인 내용이 사라집니다. 진행할까요?'
-    );
+    const isConfirmed = window.confirm(intl.formatMessage(messages.confirmLoadExample));
     if (!isConfirmed) return;
 
     fetch(projectUrl)
         .then(response => response.arrayBuffer())
         .then(arrayBuffer => vm.loadProject(arrayBuffer))
         .catch(err => {
-            console.error('예시 프로젝트 로드 실패:', err);
-            window.alert('예시 코드를 불러오지 못했습니다.');
+            console.error('예시 프로젝트 로드 실패:', err); // 이건 개발자용 콘솔 로그라 안 바꿔도 됨
+            window.alert(intl.formatMessage(messages.loadExampleFailed));
         });
 };
 
@@ -341,6 +404,7 @@ const handleLoadExample = projectUrl => {
                     onClickLesson={() => setLessonMenuOpen(true)}
                     onRequestCloseLesson={() => setLessonMenuOpen(false)}
                     onToggleLessonPanel={() => setLessonPanelVisible(!lessonPanelVisible)}
+                    onResetLessonProgress={handleResetProgress}
                 />
                 <Box className={styles.bodyWrapper}>
                     <Box className={styles.flexWrapper}>
@@ -355,27 +419,30 @@ const handleLoadExample = projectUrl => {
 
                         {/* <LessonPanel isVisible={true} /> */}
 
-<LessonPanel
-    isVisible={lessonPanelVisible}
-    shouldPulse={shouldPulse}
-    onToggle={() => {
-        setLessonPanelVisible(!lessonPanelVisible);
-        setShouldPulse(false);
-    }}
-    lesson={currentLesson}
-    lessons={lessons}
-    currentLessonIndex={currentLessonIndex}
-    onGoToLesson={handleGoToLesson}
-    steps={currentSteps}
-    currentStepIndex={currentStepIndex}
-    currentStep={currentStep}
-    hasNext={hasNextStep}
-    hasPrev={hasPrevStep}
-    onNext={handleNextStep}
-    onPrev={handlePrevStep}
-    onGoToStep={handleGoToStep}
-    onLoadExample={handleLoadExample}
-/>
+                        <LessonPanel
+                            isVisible={lessonPanelVisible}
+                            shouldPulse={shouldPulse}
+                            onToggle={() => {
+                                setLessonPanelVisible(!lessonPanelVisible);
+                                setShouldPulse(false);
+                            }}
+                            lesson={currentLesson}
+                            lessons={lessons}
+                            currentLessonIndex={currentLessonIndex}
+                            onGoToLesson={handleGoToLesson}
+                            steps={currentSteps}
+                            currentStepIndex={currentStepIndex}
+                            currentStep={currentStep}
+                            hasNext={hasNextStep}
+                            hasPrev={hasPrevStep}
+                            onNext={handleNextStep}
+                            onPrev={handlePrevStep}
+                            onGoToStep={handleGoToStep}
+                            onLoadExample={handleLoadExample}
+                            completedSteps={completedSteps}
+                            onToggleComplete={handleToggleComplete}
+
+                        />
 
                         <Box className={styles.editorWrapper}>
                             <Tabs

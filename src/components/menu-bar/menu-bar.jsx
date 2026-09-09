@@ -668,6 +668,19 @@ class MenuBar extends React.Component {
                             )}
                             </MenuItem>
                             </MenuSection>
+                            <MenuSection>
+                                <MenuItem onClick={this.props.onResetLessonProgress}>
+                                    <FormattedMessage
+                                        defaultMessage="Reset Lesson Progress"
+                                        description="Menu item to reset all lesson completion checks"
+                                        id="gui.menuBar.lessonResetProgress"
+                                    />
+                                </MenuItem>
+                            </MenuSection>
+
+
+
+
                         </MenuBarMenu>
                     </div>
 
@@ -1013,7 +1026,8 @@ MenuBar.propTypes = {
     lessonPanelVisible: PropTypes.bool,
     onClickLesson: PropTypes.func,
     onRequestCloseLesson: PropTypes.func,
-    onToggleLessonPanel: PropTypes.func
+    onToggleLessonPanel: PropTypes.func,
+    onResetLessonProgress: PropTypes.func
 };
 
 MenuBar.defaultProps = {
